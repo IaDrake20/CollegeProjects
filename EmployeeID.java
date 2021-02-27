@@ -16,12 +16,12 @@ public class EmployeeID {
         Scanner input = new Scanner(System.in);//is used to accept user input and transfer data to a variable
 
         String employeeLastName, department, birthMonth; //places to store the inputed data of the last name, dept., and date of birth
-        String lastNamePrint, deptPrint, birhtMonthPrint, nameLengthPrint; //different sections of the employee ID for the print statement
+        String last_Name_Vowel_or_Consonant_Print, deptPrint, birthMonthPrint, nameLengthPrint; //different sections of the employee ID for the print statement
 
         //fix scope issues
-        lastNamePrint = "";
+        last_Name_Vowel_or_Consonant_Print = "";
         deptPrint = "";
-        birhtMonthPrint = "";
+        birthMonthPrint = "";
         nameLengthPrint = "";
 
         //Recieve input from user
@@ -39,17 +39,17 @@ public class EmployeeID {
         //making ID
         switch(employeeLastName.valueOf(employeeLastName.charAt(0))){
 
-            case "a" : lastNamePrint = "V";
+            case "a" : last_Name_Vowel_or_Consonant_Print = "V";
                         break;
-            case "e" : lastNamePrint = "V";
+            case "e" : last_Name_Vowel_or_Consonant_Print = "V";
                         break;
-            case "i" : lastNamePrint = "V";
+            case "i" : last_Name_Vowel_or_Consonant_Print = "V";
                         break;
-            case "o" : lastNamePrint = "V";
+            case "o" : last_Name_Vowel_or_Consonant_Print = "V";
                         break;
-            case "u" : lastNamePrint = "V";
+            case "u" : last_Name_Vowel_or_Consonant_Print = "V";
                         break;
-            default: lastNamePrint = "C";
+            default: last_Name_Vowel_or_Consonant_Print = "C";
         }
 
         switch (department) {
@@ -72,29 +72,29 @@ public class EmployeeID {
 
         switch (birthMonth) {
 
-            case "jan": birhtMonthPrint = "01";
+            case "jan": birthMonthPrint = "01";
                         break;
-            case "feb": birhtMonthPrint = "01";
+            case "feb": birthMonthPrint = "01";
                         break;
-            case "mar": birhtMonthPrint = "02";
+            case "mar": birthMonthPrint = "02";
                         break;
-            case "apr": birhtMonthPrint = "02";
+            case "apr": birthMonthPrint = "02";
                         break;
-            case "may": birhtMonthPrint = "03";
+            case "may": birthMonthPrint = "03";
                         break;
-            case "jun": birhtMonthPrint = "03";
+            case "jun": birthMonthPrint = "03";
                         break;
-            case "jul": birhtMonthPrint = "04";
+            case "jul": birthMonthPrint = "04";
                         break;
-            case "aug": birhtMonthPrint = "04";
+            case "aug": birthMonthPrint = "04";
                         break;
-            case "sep": birhtMonthPrint = "05";
+            case "sep": birthMonthPrint = "05";
                         break;
-            case "oct": birhtMonthPrint = "05";
+            case "oct": birthMonthPrint = "05";
                         break;
-            case "nov": birhtMonthPrint = "06";
+            case "nov": birthMonthPrint = "06";
                         break;
-            case "dec": birhtMonthPrint = "06";
+            case "dec": birthMonthPrint = "06";
                         break;            
             default:    nameLengthPrint = "00";
                         break;
@@ -102,8 +102,25 @@ public class EmployeeID {
 
         nameLengthPrint = nameLengthPrint.valueOf(employeeLastName.length());        
 
-        System.out.println("Your employee ID is "+lastNamePrint+deptPrint+birhtMonthPrint+nameLengthPrint);
+        System.out.println("Your employee ID is "+last_Name_Vowel_or_Consonant_Print+deptPrint+birthMonthPrint+nameLengthPrint);
 
+        
+
+
+    }
+
+    public static void test() {
+        last_Name_Vowel_or_Consonant_Print = "C";
+        deptPrint = "102";
+        birthMonthPrint = "02";
+        nameLengthPrint = "05";
+        System.out.println("Your employee ID is "+last_Name_Vowel_or_Consonant_Print+deptPrint+birthMonthPrint+nameLengthPrint);
+
+        last_Name_Vowel_or_Consonant_Print = "V";
+        deptPrint = "110";
+        birthMonthPrint = "06";
+        nameLengthPrint = "12";
+        System.out.println("Your employee ID is "+last_Name_Vowel_or_Consonant_Print+deptPrint+birthMonthPrint+nameLengthPrint);
 
 
     }
