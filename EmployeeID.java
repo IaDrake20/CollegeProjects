@@ -10,13 +10,15 @@ import java.util.Scanner;
 
 //note: DO NOT USE IF STATEMENTS, ONLY SWITCH STATEMENTS
 public class EmployeeID {
+
+    static String last_Name_Vowel_or_Consonant_Print, deptPrint, birthMonthPrint, nameLengthPrint; //different sections of the employee ID for the print statement
     
     public static void main(String[]args){
 
         Scanner input = new Scanner(System.in);//is used to accept user input and transfer data to a variable
 
         String employeeLastName, department, birthMonth; //places to store the inputed data of the last name, dept., and date of birth
-        String last_Name_Vowel_or_Consonant_Print, deptPrint, birthMonthPrint, nameLengthPrint; //different sections of the employee ID for the print statement
+        //String last_Name_Vowel_or_Consonant_Print, deptPrint, birthMonthPrint, nameLengthPrint; //different sections of the employee ID for the print statement
 
         //fix scope issues
         last_Name_Vowel_or_Consonant_Print = "";
