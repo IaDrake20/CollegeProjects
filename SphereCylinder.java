@@ -71,11 +71,9 @@ public class SphereCylinder {
         //2 x Math.PI × radius^2 + 2 × Math.PI × radius × height (Cylinder complete area formula)
         //Math.PI x radius^2 x height (Cylinder volume formula)
 
-        //NOTE: (4/3) is replaced by 1.333333333 in order to assure the closest to a correct answer
-
         if (shapeChoice == 1 && calcChoice == 1){
 
-            result = 1.333333333 * Math.PI * Math.pow(radius, 3); //(sphere volume)
+            result = 4.0/3.0 * Math.PI * Math.pow(radius, 3); //(sphere volume)
 
             System.out.printf("Your answer is... %.4f", result);//format to 4 decimal places
         }
