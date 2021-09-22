@@ -1,2 +1,2 @@
 # CollegeProjects
-My lab projects starting from freshman year semester 2. All are correct, and have additional functionality added.
+These are my labs from my fall sophomore semester in 2021.
