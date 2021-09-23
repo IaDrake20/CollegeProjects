@@ -1,0 +1,46 @@
+PileOfBooks************************************************
+------------------------------------------------------------
+getCurrentSize(){
+
+return numberOfBooks;
+}
+------------------------------------------------------------
+isEmpty(){
+
+if something equals 0, return true
+
+return false;
+------------------------------------------------------------
+add(newBook: Book){
+increment numberofBooks by +1
+
+
+
+
+Book*******************************************************
+------------------------------------------------------------
+getTitle(){
+
+//return private var title
+}
+
+same thing for other variables author and year
+
+------------------------------------------------------------
+setTitle(String s){
+//set title equal to s
+}
+
+same idea for other variables
+------------------------------------------------------------
+Constructor:
+public Book(){
+//java sets variables to default values
+}
+
+equals(Book b){
+this.(whatever).equals(b.(whatever)); //based on whether this is true or not return a boolean
+//repeat for each attribute of Book
+
+toString(){
+//print out something like "Author's name is "+author+". The title of the book is "+title+". The year this book was written is "+year+".");
