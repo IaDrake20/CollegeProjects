@@ -46,12 +46,6 @@ public class Purse {
                 default:
                     System.out.println("Please enter your coins as Dollar C, Half Dollar, Quarter, Dime, Nickel, and/or Penny. Case matters. You can type E to exit");
             }
-            
-
-           // if(!(temp.equals("Dollar C") && !(temp.equals("Half Dollar") && !(temp.equals("Quarter") && !(temp.equals("Dime") && !(temp.equals("Nickel") && !(temp.equals("Penny")))))))){
-
-                //System.out.println("Please enter your coins as Dollar C, Half Dollar, Quarter, Dime, Nickel, and/or Penny. You can type E to exit");
-           // }
         }
 
 
@@ -103,7 +97,7 @@ public class Purse {
         System.out.println("The number of pennys is "+purse.getFrequencyOf("Penny"));
 
         //remove duplicates
-        for(int i = 1; i < purse.getFrequencyOf("Dollar C"); i++){
+        for(int i = 1; i < purse.getFrequencyOf("\n Dollar C"); i++){
 
             purse.remove("Dollar C");
 
@@ -153,7 +147,7 @@ public class Purse {
             }
         }
 
-        for(int i = 1; i < purse.getFrequencyOf("Penny"); i++){
+        for(int i = 1; i < purse.getFrequencyOf("Penny \n"); i++){
 
             purse.remove("Penny");
 
@@ -164,7 +158,12 @@ public class Purse {
         }
 
         System.out.println("Total cash amount after removal of duplicates is: "+ roundTotal(totalCash));
-
+        System.out.println("The number of dollar coins is "+purse.getFrequencyOf("Dollar C"));
+        System.out.println("The number of half dollars is "+purse.getFrequencyOf("Half Dollar"));
+        System.out.println("The number of quarters is "+purse.getFrequencyOf("Quarter"));
+        System.out.println("The number of dimes is "+purse.getFrequencyOf("Dime"));
+        System.out.println("The number of nickels is "+purse.getFrequencyOf("Nickel"));
+        System.out.println("The number of pennys is "+purse.getFrequencyOf("Penny"));
 
     }
 
