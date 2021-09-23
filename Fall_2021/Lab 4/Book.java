@@ -35,4 +35,24 @@ public class Book{
         year = y;
         return year;
     }
+
+    /**
+     * 
+     * @param Book b 
+     * @return true or false based on if the attributes are the same
+     */
+    public boolean equals(Book b){
+
+        if(this.author.equals(b.author) && (this.title.equals(b.title) && (this.year == b.year))){
+
+            return true;
+        }
+
+        return false;
+    }    
+
+    public String toString(){
+        return "Author is "+author+". Title of the book is "+title+". Year the book was written was "+year+".";
+    }
+
 }
