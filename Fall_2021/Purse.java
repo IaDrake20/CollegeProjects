@@ -97,65 +97,79 @@ public class Purse {
         System.out.println("The number of pennys is "+purse.getFrequencyOf("Penny"));
 
         //remove duplicates
-        for(int i = 1; i < purse.getFrequencyOf("\n Dollar C"); i++){
+        for(int i = 1; i < purse.getFrequencyOf("Dollar C"); i++){
 
             purse.remove("Dollar C");
 
-            if(purse.remove("Dollar C")){
+            
 
                 totalCash -= 1;
-            }
+            
         }
 
         for(int i = 1; i < purse.getFrequencyOf("Half Dollar"); i++){
 
             purse.remove("Half Dollar");
 
-            if(purse.remove("Half Dollar")){
+         
 
                 totalCash -= 0.5;
-            }
+            
         }
 
         for(int i = 1; i < purse.getFrequencyOf("Quarter"); i++){
 
             purse.remove("Quarter");
 
-            if(purse.remove("Quarter")){
+            
 
                 totalCash -= 0.25;
-            }
+            
         }
 
         for(int i = 1; i < purse.getFrequencyOf("Dime"); i++){
 
             purse.remove("Dime");
 
-            if(purse.remove("Dime")){
+            
 
                 totalCash -= 0.1;
-            }
+            
         }
 
         for(int i = 1; i < purse.getFrequencyOf("Nickel"); i++){
 
             purse.remove("Nickel");
 
-            if(purse.remove("Nickel")){
+           
 
                 totalCash -= 0.05;
-            }
+            
         }
 
-        for(int i = 1; i < purse.getFrequencyOf("Penny \n"); i++){
+        System.out.println(purse.getFrequencyOf("Penny"));
+
+        for(int i = 1; i < 5; i++) {//purse.getFrequencyOf("Penny"); i++){
+
+            System.out.println(purse.getFrequencyOf("Penny"));
+
+            System.out.println("i: "+i);
 
             purse.remove("Penny");
 
-            if(purse.remove("Penny")){
-
-                totalCash -= 0.01;
-            }
+            totalCash -= 0.01;
+            
         }
+
+        //while(purse.getFrequencyOf("Penny") != 1){
+
+            //purse.remove("Penny");
+
+            //if(purse.remove("Penny")){
+
+                //totalCash -= 0.01;
+           // }
+      //  }
 
         System.out.println("Total cash amount after removal of duplicates is: "+ roundTotal(totalCash));
         System.out.println("The number of dollar coins is "+purse.getFrequencyOf("Dollar C"));
