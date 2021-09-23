@@ -1,9 +1,11 @@
-/****************
+/*********************************************************************************
 * Ian Drake
 * 9/23/2021
 * Section 4010
-* This class will do something 
-******************/
+* This class will do accept input with error correction. 
+* It will then print the total cash amount and the amount of each coin.
+* After it will reduce all numbers of coins to 1 and reprint the cash total.
+**********************************************************************************/
 
 import java.util.Scanner;
 
