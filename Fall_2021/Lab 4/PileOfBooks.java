@@ -8,10 +8,10 @@ public class Book {
 
     }
 
-    //I don't think the assignment of numberOfBooks is correct
+
     public PileOfBooks(int initialCapacity){
 
-        numberOfBooks = initialCapacity;
+        pile = new Book[initialCapacity];
     }
 
     public int getCurrentSize(){
@@ -29,9 +29,16 @@ public class Book {
     }
 
     public void add(Book newBook){
+
         numberOfBooks ++;
+        pile[numberOfBooks] = newBook;
 
         //if array is full, double the capacity then add to array
+        if(numberOfBooks >= pile.length){
+            
+        }
+        
+
     }
 
 
