@@ -13,7 +13,7 @@ return false;
 ------------------------------------------------------------
 add(newBook: Book){
 increment numberofBooks by +1
-
+add newBook to pileOfBooks;
 
 
 
@@ -40,7 +40,7 @@ public Book(){
 
 equals(Book b){
 this.(whatever).equals(b.(whatever)); //based on whether this is true or not return a boolean
-//repeat for each attribute of Book
+//repeat for each attribute of Book	
 
 toString(){
 //print out something like "Author's name is "+author+". The title of the book is "+title+". The year this book was written is "+year+".");
