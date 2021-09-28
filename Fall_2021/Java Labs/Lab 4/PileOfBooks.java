@@ -30,17 +30,44 @@ public class Book {
 
     public void add(Book newBook){
 
-        numberOfBooks ++;
-        pile[numberOfBooks] = newBook;
-
         //if array is full, double the capacity then add to array
         if(numberOfBooks >= pile.length){
+            //doubleCapacity
             
+
         }
-        
+
+        numberOfBooks ++;
+        pile[numberOfBooks] = newBook;
+    }
+
+    public Book removeTopBook() {
 
     }
 
+    public void clear(){
+
+    }
+
+    private boolean isArrayFull(){
+
+    }
+
+    private void doubleCapacity() {
+
+    }
+
+    public Book[] toArray(){
+
+    }
+
+    public boolean contains(Book b){
+
+    }
+
+    public int getFrequencyOf(Book b){
+        
+    }
 
 
 }
