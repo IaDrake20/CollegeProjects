@@ -7,7 +7,6 @@ public class Book {
     private static final int DEFAUlT_CAPACITY = 50;
 
     public PileOfBooks(){
-
     }
 
 
@@ -44,9 +43,17 @@ public class Book {
 
     public Book removeTopBook() {
 
+        //take latest entry, set it equal to null and reduce numberOfBooks by 1
+        pile[numberOfBooks] = null;
+        numberOfBooks --;
+
     }
 
     public void clear(){
+
+        for(int i = 0; i < numberOfBooks; i++){
+            pile[i] = null;
+        }
 
     }
 
@@ -79,6 +86,9 @@ public class Book {
 
     public Book[] toArray(){
 
+        Book[] result = new Book[numberOfBooks];
+        result = Arrays.copyOf(pile);
+        return result;
     }
 
     public boolean contains(Book b){
