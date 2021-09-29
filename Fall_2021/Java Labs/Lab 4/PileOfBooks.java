@@ -1,6 +1,6 @@
-import org.graalvm.compiler.lir.LIRInstruction.Def;
+import java.util.Arrays;
 
-public class Book {
+public class PileOfBooks {
     
     private Book[] pile;
     private int numberOfBooks = 0;
@@ -32,7 +32,7 @@ public class Book {
     public void add(Book newBook){
 
         //if array is full, double the capacity then add to array
-        if(numberOfBooks >= pile.length){
+        if(isArrayFull()){
 
             doubleCapacity();
         }
@@ -41,12 +41,18 @@ public class Book {
         pile[numberOfBooks] = newBook;
     }
 
+    public Book getTopBook() {
+        
+        return pile[numberOfBooks];
+    }
+
     public Book removeTopBook() {
 
         //take latest entry, set it equal to null and reduce numberOfBooks by 1
-        pile[numberOfBooks] = null;
+        Book returnMe = pile[numberOfBooks];
         numberOfBooks --;
 
+        return returnMe;
     }
 
     public void clear(){
@@ -76,7 +82,7 @@ public class Book {
             temp[i] = pile[i];
         }
 
-        for(int i; (numberOfBooks + i) < temp.length; i++ ){
+        for(int i = 0; (numberOfBooks + i) < temp.length; i++ ){
 
             temp[i] = null;
         }
@@ -87,7 +93,7 @@ public class Book {
     public Book[] toArray(){
 
         Book[] result = new Book[numberOfBooks];
-        result = Arrays.copyOf(pile);
+        result = Arrays.copyOf(pile, numberOfBooks);
         return result;
     }
 
@@ -115,9 +121,7 @@ public class Book {
                 count++;
             }
         }
-
+        
         return count;
     }
-
-
 }
