@@ -1,3 +1,5 @@
+import org.graalvm.compiler.lir.LIRInstruction.Def;
+
 public class Book {
     
     private Book[] pile;
@@ -32,9 +34,8 @@ public class Book {
 
         //if array is full, double the capacity then add to array
         if(numberOfBooks >= pile.length){
-            //doubleCapacity
-            
 
+            doubleCapacity();
         }
 
         numberOfBooks ++;
@@ -51,10 +52,29 @@ public class Book {
 
     private boolean isArrayFull(){
 
+        if(numberOfBooks == DEFAUlT_CAPACITY){
+
+            return true;
+        }
+
+        return false;
     }
 
     private void doubleCapacity() {
 
+        Book[] temp = new Book[numberOfBooks * 2];
+        
+        for(int i = 0; i < numberOfBooks; i++){
+
+            temp[i] = pile[i];
+        }
+
+        for(int i; (numberOfBooks + i) < temp.length; i++ ){
+
+            temp[i] = null;
+        }
+
+        pile = temp;
     }
 
     public Book[] toArray(){
@@ -63,10 +83,30 @@ public class Book {
 
     public boolean contains(Book b){
 
+        for(int i = 0; i < numberOfBooks; i++){
+
+            if(pile[i].equals(b)){
+                
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public int getFrequencyOf(Book b){
         
+        int count = 0;
+
+        for(int i = 0; i < numberOfBooks; i++){
+
+            if(pile[i].equals(b)){
+
+                count++;
+            }
+        }
+
+        return count;
     }
 
 
