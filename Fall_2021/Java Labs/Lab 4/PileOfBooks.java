@@ -34,11 +34,13 @@ public class PileOfBooks {
         //if array is full, double the capacity then add to array
         if(isArrayFull()){
 
+            System.out.println("doubling capacity");
             doubleCapacity();
         }
 
-        numberOfBooks ++;
+        //System.out.println("ADD:: number of books ..."+ numberOfBooks);
         pile[numberOfBooks] = newBook;
+        numberOfBooks ++;
     }
 
     public Book getTopBook() {
@@ -65,7 +67,7 @@ public class PileOfBooks {
 
     private boolean isArrayFull(){
 
-        if(numberOfBooks == DEFAUlT_CAPACITY){
+        if(numberOfBooks == pile.length){
 
             return true;
         }
@@ -75,18 +77,9 @@ public class PileOfBooks {
 
     private void doubleCapacity() {
 
-        Book[] temp = new Book[numberOfBooks * 2];
+        Book[] temp;
         
-        for(int i = 0; i < numberOfBooks; i++){
-
-            temp[i] = pile[i];
-        }
-
-        for(int i = 0; (numberOfBooks + i) < temp.length; i++ ){
-
-            temp[i] = null;
-        }
-
+        temp = Arrays.copyOf(pile, numberOfBooks * 2);
         pile = temp;
     }
 
@@ -94,6 +87,7 @@ public class PileOfBooks {
 
         Book[] result = new Book[numberOfBooks];
         result = Arrays.copyOf(pile, numberOfBooks);
+        System.out.println(result.toString());
         return result;
     }
 
