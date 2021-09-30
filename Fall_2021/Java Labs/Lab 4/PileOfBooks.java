@@ -12,6 +12,10 @@ public class PileOfBooks {
 
     public PileOfBooks(int initialCapacity){
 
+        if(initialCapacity > DEFAUlT_CAPACITY){
+            initialCapacity = DEFAUlT_CAPACITY;
+            System.out.println("The initial capacy exceeded the default, so the array has been set to the default of size 50");
+        }
         pile = new Book[initialCapacity];
     }
 
@@ -91,7 +95,7 @@ public class PileOfBooks {
         return result;
     }
 
-    public boolean contains(Book b){
+    public boolean contains(Book b) {
 
         for(int i = 0; i < numberOfBooks; i++){
 
