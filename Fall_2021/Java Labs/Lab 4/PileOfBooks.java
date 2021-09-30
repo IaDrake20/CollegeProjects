@@ -89,7 +89,7 @@ public class PileOfBooks {
 
     public Book[] toArray(){
 
-        Book[] result = new Book[numberOfBooks];
+        Book[] result;
         result = Arrays.copyOf(pile, numberOfBooks);
         System.out.println(result.toString());
         return result;
