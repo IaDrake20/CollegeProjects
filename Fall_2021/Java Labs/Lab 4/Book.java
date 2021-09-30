@@ -5,9 +5,9 @@ public class Book{
     private int year;
 
     public Book(String t, String a, int y){
-        title = t;
-        author = a;
-        year = y;
+        setTitle(t);
+        setAuthor(a);
+        setYear(y);
     }
 
     public String getTitle(){

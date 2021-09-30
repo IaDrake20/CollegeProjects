@@ -13,7 +13,7 @@ public class PileOfBooks {
     public PileOfBooks(int initialCapacity){
 
         pile = new Book[initialCapacity];
-        
+
         if(initialCapacity > DEFAUlT_CAPACITY){
             initialCapacity = DEFAUlT_CAPACITY;
             System.out.println("The initial capacy exceeded the default, so the array has been set to the default of size 50");
@@ -83,8 +83,9 @@ public class PileOfBooks {
     private void doubleCapacity() {
 
         Book[] temp;
-        
+
         temp = Arrays.copyOf(pile, numberOfBooks * 2);
+        
         pile = temp;
     }
 
