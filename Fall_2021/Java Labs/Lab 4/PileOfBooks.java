@@ -1,3 +1,10 @@
+/**
+ * Ian Drake
+ * Section 4010
+ * PileOfBooks is a class that represents a pile of books. The class contains methods that
+ * consist of getting the size of the class, whether it is empty, getting or removing the top book, clearing 
+ * the Book[] pile or checking to see if it is full, and several other methods.
+ */
 import java.util.Arrays;
 
 public class PileOfBooks {
@@ -39,7 +46,7 @@ public class PileOfBooks {
         //if array is full, double the capacity then add to array
         if(isArrayFull()){
 
-            System.out.println("doubling capacity");
+            //System.out.println("doubling capacity");
             doubleCapacity();
         }
 
@@ -50,7 +57,7 @@ public class PileOfBooks {
 
     public Book getTopBook() {
         
-        return pile[numberOfBooks];
+        return pile[numberOfBooks -1];
     }
 
     public Book removeTopBook() {

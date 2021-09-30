@@ -1,3 +1,9 @@
+/**
+ * Ian Drake
+ * Section 4010
+ * This class will represent a book that has 3 attributes, a title, author, and year. 
+ * Methods present are getAttribute, setAttribute, an equals method and a toString method
+ */
 public class Book{
 
     private String title;
