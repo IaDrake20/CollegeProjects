@@ -11,10 +11,11 @@ ask for another palindrome(keep asking until keyword "E")
 
 boolean isPalindrome(String) {
 
-array 1
-array 2
+simplify string
+turn string to an array
 
-array 1 is the length of the string and will hold
+use for loop to check to see if index[i] of stringTArray is the same as index[simplifiedS.length - i]
+return based on result 
 
 
 }
@@ -26,11 +27,14 @@ if string has any characters that are punctuation, remove them
 }
 
 
-String toArray(String) {
+String[] toArray(String) {
 String[] sA = new String[string.length];
+
 for 0 to string.length{
 sA[i] = string.charAt(i);
 }
+
+return sA;
 
 					
 
