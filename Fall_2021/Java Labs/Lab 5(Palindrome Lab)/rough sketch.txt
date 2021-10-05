@@ -1,0 +1,36 @@
+ask for input
+
+Assign input to the ArrayStack<String>
+
+check to see if it is a Palindrome or not(ignore everything except for the letters)
+
+Print out based on the result of ^^^ 
+
+ask for another palindrome(keep asking until keyword "E")
+-------------------------------------------------------------------------------------------
+
+boolean isPalindrome(String) {
+
+array 1
+array 2
+
+array 1 is the length of the string and will hold
+
+
+}
+
+String simplifyString(String) {
+
+if string has any characters that are punctuation, remove them
+//example: (within for loop) if(s.charAt(i).equals("?")){
+}
+
+
+String toArray(String) {
+String[] sA = new String[string.length];
+for 0 to string.length{
+sA[i] = string.charAt(i);
+}
+
+					
+
