@@ -22,11 +22,9 @@ public class Postfix
 		//Set up loop to iterate through characters in infix
 		for(int i = 0; i < infix.length(); i++){
 
-			//do something with infix.charAt(i);
-		} 
-
-		{
-			//char nextCharacter = next character of infix
+			operatorStack.push(infix.charAt(i));
+		
+			char nextCharacter = infix.charAt(i);
 
 			if (Character.isLetter(nextCharacter)){
 				// Append nextCharacter to postfix
@@ -41,8 +39,8 @@ public class Postfix
 						// while operatorStack is not empty and 
 						// precedence of nextCharacter <= precedence of operatorStack.peek()
 			
-			
-						{
+						while(!operatorStack.isEmpty() && getPrecedence(nextCharacter) <= getPrecedence(operatorStack.peek())){
+				
 							// Append operatorStack.peek() to postfix;
 							postfix += operatorStack.pop();
 						} 
@@ -107,12 +105,9 @@ public class Postfix
 		// loop to iterate through postfix
 		for(int i =0; i < postfix.length(); i++){
 
-			valueStack.pop(postfix.charAt(i));
-		}
+			valueStack.push(postfix.charAt(i));
 		
-		{
-		
-			//nextCharacter = next character in postfix
+			char nextCharacter = valueStack.pop();
 		
 			if (Character.isLetter(nextCharacter))
 				valueStack.push(valueOf(nextCharacter));  // check
@@ -141,24 +136,21 @@ public class Postfix
 
 		switch(variable){
 
-			case 'a': variable = 2.0;
-			break;
+			case 'a': return 2.0;
 
-			case 'b': variable = 3.0;
-			break;
+			case 'b': return 3.0;
 
-			case 'c': variable = 4.0;
-			break;
+			case 'c': return 4.0;
 
-			case 'd': variable = 5.0;
-			break;
+			case 'd': return 5.0;
 
-			case 'e': variable = 6.0;
-			break;
+			case 'e': return 6.0;
 
 			default: 
 			System.out.println("I don't recognize the input. \n Error report from method valueOf(char) at line 140. \n");
 		}
+
+		return 0.0;
 	}
 
 	// method to calculate the result of two operands with
