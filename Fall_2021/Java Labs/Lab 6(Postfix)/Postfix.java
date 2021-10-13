@@ -105,12 +105,13 @@ public class Postfix
 		// loop to iterate through postfix
 		for(int i =0; i < postfix.length(); i++){
 
-			valueStack.push(postfix.charAt(i));
+			
 		
-			char nextCharacter = valueStack.pop();
+			char nextCharacter = postfix.charAt(i);
 		
 			if (Character.isLetter(nextCharacter))
 				valueStack.push(valueOf(nextCharacter));  // check
+
 			else {
 				switch(nextCharacter)  {
 				   
