@@ -13,6 +13,7 @@ boolean isPalindrome(String) {
 
 simplify string
 turn string to an array
+set up count int to see how many times the indexes are equal
 
 use for loop to check to see if index[i] of stringTArray is the same as index[simplifiedS.length - i]
 return based on result 

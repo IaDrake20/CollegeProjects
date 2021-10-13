@@ -7,7 +7,7 @@
  * The string is/isn't a Palindorme
  */
 
- import java.util.Scanner;
+ import java.util.*;
 
 public class Palindrome {
     
@@ -16,14 +16,31 @@ public class Palindrome {
     Scanner input = new Scanner(System.in);
     int numberOfInputs = 20;//arbitrary number, find better solution
 
-    ArrayStack<String> userInput = new ArrayStack<String>(numberOfInputs);
+    String userInput = "";
 
-    while(!(userInput.peek().equals("E"))){
-        userInput.push(input.nextLine()); //assign user's string to the stack after they input
+    ArrayStack<Character> characters = new ArrayStack<Character>(numberOfInputs);
+
+    do {
+        
+        //characters.push(input.next); //assign user's string to the stack after they input
+        userInput = input.nextLine();
+
+        characters.push(stringToCharArray(userInput));
+
+        if(isPalindrome(characters.peek())){
+
+            System.out.println(characters.peek() + "is a palindrome.");
+        }
+
+        else {
+            System.out.println(characters.peek() + "isn't a palindrome");
+        }
+
+
 
         
-    }
-  //userInput.push(input.nextLine()); //assign user's string to the stack after they input
+    } while(!(characters.peek().equals("E")));
+  //characters.push(input.nextLine()); //assign user's string to the stack after they input
 
 
     }
@@ -35,10 +52,32 @@ public class Palindrome {
      */
     private static boolean isPalindrome(String s){
 
+        /*
         String simplified = simplifyString(s);
-        String[] strArray = stringToArray(s);
+        char[] strArray = stringToCharArray(simplified);
 
-        if(
+        //counts number of times indexes are equal
+        int count = 0;
+
+        for(int i = 0; i < simplified.length(); i++){
+
+            //hopefully this should check the indexes and compare them.
+            //If they are equal, count will increment
+            if(strArray[i] == (strArray[simplified.length() - i])){
+
+                count++;
+            }
+
+            if(count == simplified.length()){
+                return true;
+            }
+        }
+        
+        return false;
+        */
+        charAToString();
+
+        return false;
     }
 
     /**
@@ -54,34 +93,45 @@ public class Palindrome {
         //new string to be returned
         String returnMe = "";
 
+        char compare;
+
         for(int i = 0; i < s.length(); i++){
 
-            replace = s.charAt(i);
+            compare = s.charAt(i);
+
+            replace = "";
 
             //flesh out for other punctuation
-            if(s.charAt(i) == "!" && s.charAt(i) == "?" && s.charAt(i) == "."){ 
+            if((compare == "!") || (compare == "?") || (compare == ".") || (compare == "<")){ 
 
                 replace = " ";
             }
 
             returnMe += replace;
         }
-        return s; 
+        return returnMe; 
     }
 
     /**
      * 
      * @param s String
-     * @return an array that holds each character in a different index
+     * @return uses toCharArray method to turn a string into char array
      */
-    private static String[] stringToArray(String s){
-        String[] sA = new String[s.length()];
+    private static char[] stringToCharArray(String s){
 
-        for(int i = 0; i < s.length(); i++){
-            sA[i] = s.charAt(i);
+        return s.toCharArray();
+    }
+
+
+    public static String charAToString(char[] cA){
+
+        String returnMe = "";
+
+        for(int i = 0; i < cA.length; i++){
+
+            returnMe += cA[i];
         }
-
-        return sA;
+        return returnMe;
     }
 
 }

@@ -1,0 +1,35 @@
+Fixing/writing Postfix.java
+
+
+
+
+--------------------------------------
+Writing TestPostFix.java
+
+//ask for user input
+import Scanner
+assign input to a string
+
+//convert to postfix
+use method from Postfix.java class convertToPostfix(userInput)
+assign to string "postFixExpression"
+
+//print evaluation
+kinda obvious
+
+
+M-0
+a-1
+d-2
+a-3
+m-4
+ -5
+ -6
+I-7
+ -8
+m-9
+ -10
+A-11
+d-12
+a-13
+m-14
