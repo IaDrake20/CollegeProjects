@@ -29,6 +29,7 @@ public class Postfix
 		
 			char nextCharacter = infix.charAt(i);
 
+
 			if (Character.isLetter(nextCharacter)){
 				// Append nextCharacter to postfix
 				postfix += nextCharacter;
@@ -42,7 +43,7 @@ public class Postfix
 						// while operatorStack is not empty and 
 						// precedence of nextCharacter <= precedence of operatorStack.peek()
 
-						System.out.println(getPrecedence(nextCharacter));
+						System.out.println("Precedence of "+nextCharacter+" is "+getPrecedence(nextCharacter));
 			
 						while(!operatorStack.isEmpty() && getPrecedence(nextCharacter) <= getPrecedence(operatorStack.peek())){
 				
@@ -90,16 +91,17 @@ public class Postfix
 	private static int getPrecedence(char operator){
 
 		switch(operator){
+			case '(': return 0;
+			case ')': return 0;
 			case '+': return 1;
 			case '-': return 1;
 			case '*': return 2;
 			case '/': return 2;
 
 			default: 
-			System.out.println("An operator is not present in the variable operator. Error report at getPrecedence method.");
+			System.out.println("An operator is not present in the variable operator__"+operator+"."+" Error report at getPrecedence method.");
 		}
 
-		//if this returns -1, something went wrong
 		return -1;
 	}
 
@@ -109,25 +111,32 @@ public class Postfix
 		LinkedStack<Double> valueStack = new LinkedStack<>();
       
 		// loop to iterate through postfix
-		for(int i =0; i < postfix.length(); i++){
+		for(int i =0; i < 3; i++){//postFix.length
 
 			char nextCharacter = postfix.charAt(i);
 			
 
 			System.out.println("iteration"+i+" value is "+postfix.charAt(i));
 		
-			if (Character.isLetter(nextCharacter))
+			if (Character.isLetter(nextCharacter)){
 				valueStack.push(valueOf(nextCharacter));  // check
+				System.out.println("Added "+nextCharacter+" to valueStack");
+			}
 
 			else {
 				switch(nextCharacter)  {
 				   
-					
-
 					case '+': case '-': case '*': case '/': case '^':
 					System.out.println("Valuestack.pop is"+valueStack.peek());
+
 						double operandTwo = valueStack.pop();
+
+						System.out.println("operand2 (evalPostfix) is"+operandTwo);
+						System.out.println("Valuestack.pop is"+valueStack.peek());
+
 						double operandOne = valueStack.pop();
+						System.out.println("operand1 (evalPostfix) is"+operandOne);
+
 						// result = the result of the operation in nextCharacter 
 						// and its operands operandOne and operandTwo
 						double result = compute(operandOne, operandTwo, nextCharacter);
@@ -140,7 +149,10 @@ public class Postfix
 					default: break; // Ignore unexpected characters
 				}
 			}
-		}       
+		} //end of for loop
+		
+		//System.out.println("after for loop (infix) iteration"+i+" value is "+postfix.charAt(i));
+		System.out.println("EvalPostfix...........postfix is"+postfix);
 		return (valueStack.peek()).doubleValue();
 	}
 
@@ -181,7 +193,30 @@ public class Postfix
 			System.out.println("Issue with either compute method or what is being passed thru");
 		}
 
-		return Math.PI; //return pii for the lols
+		//returns null if something goofs up
+		return null; 
+	}
+
+
+	public static double test() {
+
+		LinkedStack<Double> valueStack = new LinkedStack<>();
+		LinkedStack<Character> operatorStack = new LinkedStack<>();
+
+		valueStack.push(2.0);
+		valueStack.push(2.0);
+
+		operatorStack.push('(');
+		operatorStack.push('+');
+		operatorStack.push(')');
+
+		double operandTwo = valueStack.pop();
+		double operandOne = valueStack.pop();
+
+		char operator = operatorStack.pop();
+
+		return compute(operandOne, operandTwo, operator);
+		
 	}
 } 
                  

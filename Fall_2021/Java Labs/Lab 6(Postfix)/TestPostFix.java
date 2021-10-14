@@ -18,7 +18,10 @@ public class TestPostFix {
         words = Postfix.convertToPostfix(words);
 
         //print evaluation
-        System.out.println(Postfix.evaluatePostfix(words));
+        //System.out.println(Postfix.evaluatePostfix(words));
+
+        //test
+        System.out.println(Postfix.test());
     }
     
     //ask for user input
