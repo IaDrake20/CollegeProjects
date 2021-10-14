@@ -1,5 +1,3 @@
-import org.graalvm.compiler.api.replacements.Snippet.VarargsParameter;
-
 // A class containing static methods for dealing with postfix expressions
 // The two public static methods are for 
 //     1. coverting an infix expression to a postfix expression
@@ -20,7 +18,12 @@ public class Postfix
 		char topOperator;
 
 		//Set up loop to iterate through characters in infix
-		for(int i = 0; i < infix.length(); i++){
+
+		System.out.println("infix.length is"+infix.length());
+		System.out.println(infix);
+
+
+		for(int i = 0; i < infix.length(); i++) {
 
 			operatorStack.push(infix.charAt(i));
 		
@@ -38,6 +41,8 @@ public class Postfix
 					case '+': case '-': case '*': case '/':
 						// while operatorStack is not empty and 
 						// precedence of nextCharacter <= precedence of operatorStack.peek()
+
+						System.out.println(getPrecedence(nextCharacter));
 			
 						while(!operatorStack.isEmpty() && getPrecedence(nextCharacter) <= getPrecedence(operatorStack.peek())){
 				
@@ -71,6 +76,7 @@ public class Postfix
 		{
 			topOperator = operatorStack.pop();
 			//Append topOperator to postfix
+			postfix += topOperator;
 
 		} 
 		return postfix.toString();
@@ -90,7 +96,7 @@ public class Postfix
 			case '/': return 2;
 
 			default: 
-			System.out.println("An operator is not present in the variable operator.");
+			System.out.println("An operator is not present in the variable operator. Error report at getPrecedence method.");
 		}
 
 		//if this returns -1, something went wrong
@@ -105,9 +111,10 @@ public class Postfix
 		// loop to iterate through postfix
 		for(int i =0; i < postfix.length(); i++){
 
-			
-		
 			char nextCharacter = postfix.charAt(i);
+			
+
+			System.out.println("iteration"+i+" value is "+postfix.charAt(i));
 		
 			if (Character.isLetter(nextCharacter))
 				valueStack.push(valueOf(nextCharacter));  // check
@@ -115,13 +122,19 @@ public class Postfix
 			else {
 				switch(nextCharacter)  {
 				   
+					
+
 					case '+': case '-': case '*': case '/': case '^':
+					System.out.println("Valuestack.pop is"+valueStack.peek());
 						double operandTwo = valueStack.pop();
 						double operandOne = valueStack.pop();
 						// result = the result of the operation in nextCharacter 
 						// and its operands operandOne and operandTwo
+						double result = compute(operandOne, operandTwo, nextCharacter);
 
 						valueStack.push(result);
+
+						//valueStack.push(compute(operandOne, operandTwo, nextCharacter));
 						break;
 					   
 					default: break; // Ignore unexpected characters
@@ -164,6 +177,8 @@ public class Postfix
 			case '-': return operandOne - operandTwo;
 			case '*': return operandOne * operandTwo;
 			case '/': return operandOne / operandTwo;
+			default: 
+			System.out.println("Issue with either compute method or what is being passed thru");
 		}
 
 		return Math.PI; //return pii for the lols

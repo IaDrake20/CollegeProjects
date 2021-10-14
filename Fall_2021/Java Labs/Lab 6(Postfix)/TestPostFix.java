@@ -11,6 +11,8 @@ public class TestPostFix {
 
         //ask for user input. Make it professional later
         System.out.println("Please enter stuff");
+        words = input.nextLine();
+
 
         //convert to postfix
         words = Postfix.convertToPostfix(words);
