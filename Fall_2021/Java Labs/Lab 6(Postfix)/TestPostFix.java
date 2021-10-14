@@ -1,3 +1,9 @@
+/**
+ * Ian Drake
+ * Section 4010
+ * 10/14/2021
+ * Accept user input and turn that into postfix. Then calculate the answer to the expression.
+ */
 import java.util.Scanner;
 
 public class TestPostFix {
@@ -7,21 +13,21 @@ public class TestPostFix {
         Scanner input = new Scanner(System.in);
         
         //better var name?
-        String words = "";
+        String expression = "";
 
         //ask for user input. Make it professional later
-        System.out.println("Please enter stuff");
-        words = input.nextLine();
+        System.out.println("Please enter a mathematic expression using the variables a to e. The variable a is 2.0, b is 3.0, and the rest up to e continue the pattern.");
+        expression = input.nextLine();
 
 
         //convert to postfix
-        words = Postfix.convertToPostfix(words);
+        expression = Postfix.convertToPostfix(expression);
 
         //print evaluation
-        //System.out.println(Postfix.evaluatePostfix(words));
+        System.out.println(Postfix.evaluatePostfix(expression));
 
         //test
-        System.out.println(Postfix.test());
+        //System.out.println(Postfix.test());
     }
     
     //ask for user input

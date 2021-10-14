@@ -18,14 +18,7 @@ public class Postfix
 		char topOperator;
 
 		//Set up loop to iterate through characters in infix
-
-		System.out.println("infix.length is"+infix.length());
-		System.out.println(infix);
-
-
 		for(int i = 0; i < infix.length(); i++) {
-
-			operatorStack.push(infix.charAt(i));
 		
 			char nextCharacter = infix.charAt(i);
 
@@ -43,12 +36,17 @@ public class Postfix
 						// while operatorStack is not empty and 
 						// precedence of nextCharacter <= precedence of operatorStack.peek()
 
-						System.out.println("Precedence of "+nextCharacter+" is "+getPrecedence(nextCharacter));
+						//operatorStack.push(nextCharacter);
+
+						////////System.out.println("Precedence of "+nextCharacter+" is "+getPrecedence(nextCharacter));
 			
 						while(!operatorStack.isEmpty() && getPrecedence(nextCharacter) <= getPrecedence(operatorStack.peek())){
 				
+							//////System.out.println("Precedence of "+nextCharacter+" is "+getPrecedence(nextCharacter));
+
 							// Append operatorStack.peek() to postfix;
 							postfix += operatorStack.pop();
+							
 						} 
  
 						operatorStack.push(nextCharacter);
@@ -60,11 +58,13 @@ public class Postfix
 
 					case ')': 
 						topOperator = operatorStack.pop();
+						
 						while (topOperator != '(')
 						{
 							//Append topOperator to postfix
-
+							//////System.out.println("Appending topOp to postfix string"+ operatorStack.peek());
 							postfix += topOperator;
+							topOperator=operatorStack.pop();
 						} 
 						break;
 
@@ -109,41 +109,42 @@ public class Postfix
 	public static double evaluatePostfix(String postfix)
 	{
 		LinkedStack<Double> valueStack = new LinkedStack<>();
+
+		//////System.out.println("postfix is"+postfix);
       
 		// loop to iterate through postfix
-		for(int i =0; i < 3; i++){//postFix.length
+		for(int i =0; i < postfix.length(); i++){//postFix.length
 
-			char nextCharacter = postfix.charAt(i);
-			
+			char nextCharacter = postfix.charAt(i);			
 
-			System.out.println("iteration"+i+" value is "+postfix.charAt(i));
+			//////System.out.println("iteration"+i+" value is "+postfix.charAt(i));
 		
 			if (Character.isLetter(nextCharacter)){
 				valueStack.push(valueOf(nextCharacter));  // check
-				System.out.println("Added "+nextCharacter+" to valueStack");
+
+				//////System.out.println("Added "+nextCharacter+" to valueStack");
 			}
 
 			else {
 				switch(nextCharacter)  {
 				   
 					case '+': case '-': case '*': case '/': case '^':
-					System.out.println("Valuestack.pop is"+valueStack.peek());
+					//////System.out.println("Valuestack.pop is"+valueStack.peek());
 
 						double operandTwo = valueStack.pop();
 
-						System.out.println("operand2 (evalPostfix) is"+operandTwo);
-						System.out.println("Valuestack.pop is"+valueStack.peek());
+						//////System.out.println("operand2 (evalPostfix) is"+operandTwo);
+						//////System.out.println("Valuestack.pop is"+valueStack.peek());
 
 						double operandOne = valueStack.pop();
-						System.out.println("operand1 (evalPostfix) is"+operandOne);
+						//////System.out.println("operand1 (evalPostfix) is"+operandOne);
 
 						// result = the result of the operation in nextCharacter 
 						// and its operands operandOne and operandTwo
+						//////System.out.println("Operator is "+nextCharacter);
 						double result = compute(operandOne, operandTwo, nextCharacter);
 
 						valueStack.push(result);
-
-						//valueStack.push(compute(operandOne, operandTwo, nextCharacter));
 						break;
 					   
 					default: break; // Ignore unexpected characters
@@ -151,14 +152,16 @@ public class Postfix
 			}
 		} //end of for loop
 		
-		//System.out.println("after for loop (infix) iteration"+i+" value is "+postfix.charAt(i));
-		System.out.println("EvalPostfix...........postfix is"+postfix);
+		////////System.out.println("after for loop (infix) iteration"+i+" value is "+postfix.charAt(i));
+		//////System.out.println("EvalPostfix...........postfix is"+postfix);
 		return (valueStack.peek()).doubleValue();
 	}
 
 	// method to set values of 2.0 for a, 3.0 for b, 4.0 for c
 	// 5.0 for d and 6.0 for e. Other values are assigned 0
 	private static double valueOf(char variable){
+
+		//////System.out.println("Comparing "+variable);
 
 		switch(variable){
 
@@ -173,7 +176,7 @@ public class Postfix
 			case 'e': return 6.0;
 
 			default: 
-			System.out.println("I don't recognize the input. \n Error report from method valueOf(char) at line 140. \n");
+			//////System.out.println("I don't recognize the input.\nError report from method valueOf(char) at line 140. \n");
 		}
 
 		return 0.0;
@@ -190,11 +193,11 @@ public class Postfix
 			case '*': return operandOne * operandTwo;
 			case '/': return operandOne / operandTwo;
 			default: 
-			System.out.println("Issue with either compute method or what is being passed thru");
+			//////System.out.println("Issue with either compute method or what is being passed thru");
 		}
 
 		//returns null if something goofs up
-		return null; 
+		return 0; 
 	}
 
 
