@@ -1,0 +1,50 @@
+letters(uppercase and lowercase) are 32 decimal apart or 0x20 hex
+
+character out for 4A and 6A
+Decimal out for 006A and 004A
+
+Display as hex
+Use HEXO (only do this for original character)
+
+other requirements
+put data section in low memory and branch around it
+--> 1)  have branch 
+	have data below it
+	branch will "jump" over data
+
+Use A register
+(make sure I know what is in it)
+do: LDWA 0,i (this will clear the register)
+
+LF: line feed
+Write 0x0A to FC16
+LDWA 0x0A,i
+
+data:
+orig character
+capitol version
+
+Notes:
+This should work several times in a row.
+This should work under the assumption the input will always be a lowercase number.
+
+
+.BLOCK 1
+LDWA 0,i
+LDBA 0xFC15,d
+STBA 0xFC16,d
+STOP
+.END
+
+LF code
+LDBA 0xA,i    ;line feed
+STBA 0xFC16,d ;display
+STBA 0x3,d ;store address A at 3
+
+;;;; DISPLAY CHARACTER AND LINE FEED
+LDBA 0x3,d ;load it
+STBA 0xFC16,d 
+LDBA 0xA,i
+STBA 0xFC16,d
+
+Use batch input

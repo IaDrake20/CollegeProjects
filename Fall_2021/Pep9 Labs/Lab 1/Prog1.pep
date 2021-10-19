@@ -1,0 +1,2 @@
+LDWA 0xFFFF,i
+STWA 0x3,d

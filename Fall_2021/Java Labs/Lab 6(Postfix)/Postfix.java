@@ -110,7 +110,7 @@ public class Postfix
 	{
 		LinkedStack<Double> valueStack = new LinkedStack<>();
 
-		//////System.out.println("postfix is"+postfix);
+		System.out.println("postfix is"+postfix);
       
 		// loop to iterate through postfix
 		for(int i =0; i < postfix.length(); i++){//postFix.length
