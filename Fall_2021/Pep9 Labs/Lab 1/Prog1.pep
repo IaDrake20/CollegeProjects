@@ -11,22 +11,22 @@ STWA 0x0003, d
 DECO 0x0003, d
 
 
-LDWA 0x000A,i
+LDWA 0x000A, i
 STBA 0xFC16, d
 
-;get input then save it at address 0x403
+;get input then save it at address 0x0006
 LDBA 0xFC15, d
 STBA 0x0006, d
 
 ;display orig char 
 STBA 0xFC16, d
 
-;subtract and store uppercase at 0x405
+;subtract and store uppercase at 0x0008
 SUBA 0x20, i
 STBA 0x0008, d
 
 ;LF
-LDWA 0x000A,i
+LDWA 0x000A, i
 STBA 0xFC16, d
 
 ;display uppercase char
