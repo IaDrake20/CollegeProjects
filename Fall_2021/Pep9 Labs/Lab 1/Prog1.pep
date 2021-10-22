@@ -1,7 +1,7 @@
 BR 0x0009,i
 .BLOCK 6
 
-LDWA 0x0000, i ;clear 
+LDWA 0x0000, i ;clear mem so going thru sys to clear mem isnt needed
 STWA 0x0003, d
 STWA 0x0005, d
 STWA 0x0007, d
