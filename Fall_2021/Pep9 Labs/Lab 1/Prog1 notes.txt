@@ -31,8 +31,8 @@ This should work under the assumption the input will always be a lowercase numbe
 
 .BLOCK 1
 LDWA 0,i
-LDBA 0xFC15,d
-STBA 0xFC16,d
+LDBA 0xFC15,d ;loads it
+STBA 0xFC16,d ;prints it
 STOP
 .END
 
@@ -48,3 +48,18 @@ LDBA 0xA,i
 STBA 0xFC16,d
 
 Use batch input
+
+
+
+
+------------------------------
+DECI 0x40,d
+DECO 0x40,d
+
+
+
+--------------------------
+BR 0x0005,i
+.BLOCK 2
+DECI 0x3,d
+DECO 0x3,d

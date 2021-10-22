@@ -8,7 +8,7 @@
 public class RectangleGroup{
 
     private int numRectangles;
-    Rectangle[] theRectangles;
+    private Rectangle[] theRectangles;
 
     public RectangleGroup() {
 
@@ -32,9 +32,10 @@ public class RectangleGroup{
     }
 
     public void addRectangle(Rectangle r){
-        
+        if(numRectangles < 50){ 
         theRectangles[numRectangles] = r;
         numRectangles++;
+        }
     }
 
     public boolean isEmpty() {
@@ -47,44 +48,29 @@ public class RectangleGroup{
 
     public double largestArea() {
 
-        double area = 0;
-        double area2 = 0;
+        double highestArea = theRectangles[0].calcArea;
 
         for(int i = 0; i < numRectangles; i++){
 
-            area = theRectangles[i].calcArea();
-
-            if( i > 0){
-                area2 = theRectangles[i - 1].calcArea();
+            if (theRectangles[i].calcArea() > highestArea){}
+				highestArea = theRectangles[i].calcArea();
             }
-
-            else if(area > area2 && i > numRectangles){
-                return area;
-            }
-            
         }
 
-         return area2;
+         return highestArea;
     }
 
     public double largestPerimeter() {
         
-        double perim = 0;
-        double perim2 = 0;
+        double highestPerimeter = theRectangles[0].calcPerimeter();
 
         for(int i = 0; i < numRectangles; i++){
 
-            perim = theRectangles[i].calcPerimeter();
-
-            if( i > 0){
-                perim2 = theRectangles[i - 1].calcPerimeter();
-            }
-
-            if(perim > perim2 && i > numRectangles){
-                return perim;
-            }
+           if(theRectangles[i].calcPerimeter > highestPerimeter){
+               highestPerimeter = theRectangles[i].calcPerimeter();
+           }
         }
-         return perim2;
+         return highestPerimeter;
     }
 
     public static void printSquares(RectangleGroup rg){ //RectangleGroup
