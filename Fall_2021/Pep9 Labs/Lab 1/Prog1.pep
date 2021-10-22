@@ -58,18 +58,5 @@ HEXO 0x0005, d
 LDBA 0x000A, i
 STBA 0xFC16, d
 
-
-
-
-
-;BR 4
-;.block 1
-;LDWA 0xFFFF,i
-
-;LDBA 0x3,d ;load byte at address 3 into A
-;STBA 0xFC16,d 
-;LDBA 0xA,i
-;STBA 0xFC16,d
-
 STOP
 .END
