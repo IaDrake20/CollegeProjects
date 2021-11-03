@@ -21,8 +21,10 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 
 		// Deal with two different cases	
 		if (isEmpty()){
-			frontNode.setNext(newNode);
 
+			//since 1 node exists, both front and back point to this node
+			frontNode = newNode;
+			backNode = newNode;
 		}
 		
 	
@@ -31,7 +33,9 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 
 			//add newNode to the back
 			backNode.setNext(newNode);
-			
+
+			//now that something is pointing to newNode, make newNode the backNode
+			backNode = newNode;
 		}
 		  
 		
