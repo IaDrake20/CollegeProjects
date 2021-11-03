@@ -14,24 +14,34 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 	public void enqueue(T newItem)
 	{
 		// Create node with data newItem which does not point to anything
-		
+		Node <T> newNode = new Node(newItem, null);
 
 
 		// Deal with two different cases	
-		if (isEmpty())
+		if (isEmpty()){
+			//do something
+		}
 		
 	
 	
-		else
+		else{
+			//set backNode to increment
+			//double size if necessary
+		}
 		  
 		
+
 	}
 
 	public T getFront()
 	{
 		// Must throw EmptyQueueException if the queue is empty
-
-
+		if(frontNode == null){
+			throw EmptyQueueException;
+		}
+		else{
+			return frontNode.getData();
+		}
 
 	} 
 	   
@@ -41,7 +51,7 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 		frontNode.setData(null);
 		
 		// set frontNode to the second node
-
+		frontNode = frontNode.getNext();
 
 
 		// Deal with two different cases
@@ -61,7 +71,7 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 	   
 	public void clear()
 	{
-	
+	//
 
 	}
 	

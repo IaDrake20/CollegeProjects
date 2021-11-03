@@ -2,7 +2,7 @@ public class Node<T>  {
 	// Create two private instance variable for data and next
 
 	T data;
-	T next;
+	Node <T> next;
 
   
   
@@ -10,14 +10,13 @@ public class Node<T>  {
 	public Node(T dataPortion)
 	{
 		data = dataPortion;
-
+		next = null;
 	}
   
 	public Node(T dataPortion, Node<T> linkPortion)
 	{
-		data = getData();
-		next = getNext();
-
+		data = dataPortion;
+		next = linkPortion;
 	} 
 
 	// Write two get methods and two set methods
@@ -26,7 +25,7 @@ public class Node<T>  {
 		data = d;
 	}
 
-	public void setNext(T n){
+	public void setNext(Node<T> n){
 		next = n;
 	}
 
@@ -34,7 +33,7 @@ public class Node<T>  {
 		return data;
 	}
 
-	public T getNext(){
+	public Node <T> getNext(){
 		return next;
 	}
 	
