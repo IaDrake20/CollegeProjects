@@ -5,11 +5,13 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 	   
 	public LinkedQueue()
 	{
-
-
-
+			frontNode = null;
+			backNode = null;
 
 	}
+
+
+	//node1 --> node2
 		
 	public void enqueue(T newItem)
 	{
@@ -19,14 +21,13 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 
 		// Deal with two different cases	
 		if (isEmpty()){
-			//do something
+			
 		}
 		
 	
 	
 		else{
-			//set backNode to increment
-			//double size if necessary
+			
 		}
 		  
 		
@@ -65,13 +66,19 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 			
 	public boolean isEmpty()
 	{
-	
+	//check frontNode and BackNode
+		boolean v = false;
+		if(frontNode == null){
+			v = true;
+		}	
+
+	return v;
 
 	} 
 	   
 	public void clear()
 	{
-	//
+		frontNode.setNext(null);
 
 	}
 	
