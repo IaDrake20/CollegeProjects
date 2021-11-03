@@ -1,0 +1,24 @@
+anything before, print "?"
+
+cap A starts at 100 0001 0x41
+cap Z ends at 101 1010 0x5A
+
+vowel check 
+
+lower a is 0x61
+lower z is 0x7A
+
+vowel check
+
+anything after print "?"
+
+
+numbers are hex 30-39
+check if even or odd
+(bitmasking, arithmetic shifting)
+if less than 0x41, it is "other"
+
+---------------------
+CPBA 'A', i
+vs
+CPBA 0x41,i
