@@ -1,3 +1,5 @@
+import javax.swing.text.rtf.RTFEditorKit;
+
 public final class LinkedQueue<T> implements QueueInterface<T>  {
 	
 	private Node<T> frontNode;
@@ -26,8 +28,6 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 			frontNode = newNode;
 			backNode = newNode;
 		}
-		
-	
 	
 		else{
 
@@ -37,9 +37,6 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 			//now that something is pointing to newNode, make newNode the backNode
 			backNode = newNode;
 		}
-		  
-		
-
 	}
 
 	public T getFront()
@@ -57,8 +54,18 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 	 */
 	public T dequeue()
 	{
+		T front;
+		try {
 		//an exception will be thrown if getFront is empty
-		T front = getFront();
+			front = getFront();
+		}
+
+		catch( EmptyQueueException e){
+
+			System.out.println("No node present");
+			return null;
+		}
+
 		frontNode.setData(null);
 		
 		// set frontNode to the second node
@@ -66,15 +73,12 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 
 		// Deal with two different cases
 		if (frontNode == null){
-
 			backNode = null;
-			return front;
 		}
 
 		else{
-
-
-			
+			//this else doesn't need to exist as the case it would cover
+			//is accounted for above
 		}
 
 		return front;
@@ -84,13 +88,12 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 			
 	public boolean isEmpty()
 	{
-	//check frontNode and BackNode
-		boolean v = false;
+	//check frontNode
 		if(frontNode == null){
-			v = true;
+			return true;
 		}	
 
-	return v;
+		return false;
 
 	} 
 	   
@@ -109,19 +112,21 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 		Node <T> currentNode;
 		int counter = 0;
 
-		currentNode = frontNode.getNext();
+		currentNode = frontNode;
+
+		//check 
+		if(isEmpty()){
+			return 0;
+		}
 
 		while(!endOfList){
 
-			//check the .next, if it points to something increment count, otherwise leave
-			if(currentNode.getData() != null){
+			counter++;
+			currentNode = currentNode.getNext();
+			
 
-				counter++;
-				currentNode = currentNode.getNext();
-			}
-
-			else {
-				System.out.println("CurrNode is null");
+			if(currentNode == null) {
+				//System.out.println("CurrNode is null");
 				endOfList = true;
 			}
 			
@@ -136,7 +141,29 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 	// Print the data part of each node in the queue
 	// Call to the toString method in Node when necessary
  	public String toString() {
-        return "I'm supposed to be a node's data";
+        
+		boolean endOfList = false;
+		Node <T> currentNode;
+		currentNode = frontNode;
+
+		String nodeData = "";
+
+		if(isEmpty()){
+			return nodeData;
+		}
+
+		while(!endOfList){
+
+			nodeData += " "+currentNode.toString();
+			currentNode = currentNode.getNext();
+			
+
+			if(currentNode == null) {
+				endOfList = true;
+			}
+			
+		}
+		return nodeData;
 	}
 
 }

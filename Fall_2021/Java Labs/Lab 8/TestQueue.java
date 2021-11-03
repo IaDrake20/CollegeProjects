@@ -22,12 +22,8 @@ public class TestQueue  {
 		System.out.println(myQueue.dequeue());
 		myQueue.clear();
 		System.out.println("Queue is empty.." + myQueue.isEmpty());
-		try{
-			myQueue.dequeue();
-		}
-		catch(EmptyQueueException e){
-			
-		}
+	
+		myQueue.dequeue();
 		
 		myQueue.enqueue("Sam");
 		myQueue.enqueue("Sandy");
