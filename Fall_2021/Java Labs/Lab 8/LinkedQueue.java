@@ -22,7 +22,7 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 		// Deal with two different cases	
 		if (isEmpty()){
 			frontNode.setNext(newNode);
-			
+
 		}
 		
 	
@@ -42,10 +42,7 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 		if(frontNode == null){
 			throw excep;
 		}
-		else{
-			return frontNode.getData();
-		}
-
+		return frontNode.getData();
 	} 
 	
 	/**
@@ -73,7 +70,7 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 		else{
 
 
-			numNodes();
+			
 		}
 
 		return front;
