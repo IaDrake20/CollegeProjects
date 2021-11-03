@@ -28,6 +28,9 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 	
 	
 		else{
+
+			//add newNode to the back
+			backNode.setNext(newNode);
 			
 		}
 		  
@@ -50,14 +53,12 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 	 */
 	public T dequeue()
 	{
+		//an exception will be thrown if getFront is empty
 		T front = getFront();
 		frontNode.setData(null);
 		
 		// set frontNode to the second node
 		frontNode = frontNode.getNext();
-
-		//not in use
-		Node <T> temp;
 
 		// Deal with two different cases
 		if (frontNode == null){
@@ -65,7 +66,6 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 			backNode = null;
 			return front;
 		}
-
 
 		else{
 
