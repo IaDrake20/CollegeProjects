@@ -42,7 +42,7 @@ public class Node<T>  {
 	
 	// Write toString method to return the data in the node
 	public String toString(){
-		return "data: "+data+ " Next: "+next;
+		return "data: "+data;
 	}
 	
 	

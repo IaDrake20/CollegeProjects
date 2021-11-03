@@ -21,6 +21,7 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 
 		// Deal with two different cases	
 		if (isEmpty()){
+			frontNode.setNext(newNode);
 			
 		}
 		
@@ -46,7 +47,10 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 		}
 
 	} 
-	   
+	
+	/**
+	 * if frontNode is null return null and do nothing
+	 */
 	public T dequeue()
 	{
 		T front = getFront();
@@ -55,17 +59,24 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 		// set frontNode to the second node
 		frontNode = frontNode.getNext();
 
+		//not in use
+		Node <T> temp;
 
 		// Deal with two different cases
 		if (frontNode == null){
 
-			
+			backNode = null;
+			return front;
 		}
 
 
 		else{
 
+
+			numNodes();
 		}
+
+		return front;
 
 
 	}
@@ -101,7 +112,7 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 
 		while(!endOfList){
 
-			//check the .next, if it points to something yay, otherwise leave
+			//check the .next, if it points to something increment count, otherwise leave
 			if(currentNode.getData() != null){
 
 				counter++;
