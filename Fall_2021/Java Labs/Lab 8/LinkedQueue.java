@@ -37,8 +37,9 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 	public T getFront()
 	{
 		// Must throw EmptyQueueException if the queue is empty
+		EmptyQueueException excep = new EmptyQueueException();
 		if(frontNode == null){
-			throw EmptyQueueException;
+			throw excep;
 		}
 		else{
 			return frontNode.getData();
@@ -56,10 +57,15 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 
 
 		// Deal with two different cases
-		if (frontNode == null)
+		if (frontNode == null){
+
+			
+		}
 
 
-		else
+		else{
+
+		}
 
 
 	}
@@ -78,14 +84,38 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 	   
 	public void clear()
 	{
-		frontNode.setNext(null);
-
+		frontNode = null;
+		backNode = null;
 	}
 	
 	
 	
 	public int numNodes() {
+		///OPtion A:
+		
+		boolean endOfList = false;
+		Node <T> currentNode;
+		int counter = 0;
 
+		currentNode = frontNode.getNext();
+
+		while(!endOfList){
+
+			//check the .next, if it points to something yay, otherwise leave
+			if(currentNode.getData() != null){
+
+				counter++;
+				currentNode = currentNode.getNext();
+			}
+
+			else {
+				System.out.println("CurrNode is null");
+				endOfList = true;
+			}
+			
+		}
+
+		return counter;
 
 	}		
 		
@@ -94,7 +124,7 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 	// Print the data part of each node in the queue
 	// Call to the toString method in Node when necessary
  	public String toString() {
-        
+        return "I'm supposed to be a node's data";
 	}
 
 }
