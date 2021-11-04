@@ -12,6 +12,8 @@ intUserInputs = input.nextInt();
 int totalInputs_1 ++;
 }
 
+second idea is to use String Tokenizer
+
 	make a second ArrayQueue<Integer>, add integers to it from user input
 //just do the same thing as the first one
 //have int totqlInputs_2 increment in same place
@@ -21,8 +23,9 @@ new int[] array of the same size as totalInputs_1
 load inputs through a for loop
 something like for(int i = 0; i < newArray.length -1; i++) {
 			newArray[i] = intUserInputs_1.dedqueue();
+			//have some way of sorting the values as they are indexed
 }
-newArray.sort();
+
 
 //repeat for second ArrayQueue
 
