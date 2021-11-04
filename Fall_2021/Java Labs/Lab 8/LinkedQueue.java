@@ -109,10 +109,10 @@ public final class LinkedQueue<T> implements QueueInterface<T>  {
 		///OPtion A:
 		
 		boolean endOfList = false;
-		Node <T> currentNode;
+		Node <T> currentNode = frontNode;
 		int counter = 0;
 
-		currentNode = frontNode;
+		//currentNode = frontNode;
 
 		//check 
 		if(isEmpty()){
