@@ -1,7 +1,7 @@
 ;get character output 
                  LDBA 0xFC15, d
                  STBA 0x0208, d
-
+                 BR 1 
 
 
 ;LF
@@ -9,10 +9,15 @@
                  STBA 0xFC16, d
 
 ;print dashes
-                 .ASCII "----------------------------\x00 \n"
+dashes:          .ASCII "----------------------------\x00 \n"
+                 STRO dashes, i
+;write character to mem
+
+;get character's hex value and load it to A
 
 ;is the character a number? if not, branch to next condition. if char < 30 and > 39, branch away to BR isLetter
-
+                 CPBA ;ERROR: Operand specifier expected after mnemonic.
+                 BRGT 0x0208, i 
 ;print out that character
                  LDBA 0x0208,d
                  STBA 0xFC16, d
@@ -42,7 +47,8 @@ isMisc:          LDBA 0x0208, d
 
 
 ;print what type of character the character is
-                 .ASCII "The letter is a "
+     
+                 .ASCII "e" ; 
 
                  STOP
                  .END
