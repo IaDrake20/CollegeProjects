@@ -3,12 +3,14 @@ anything before, print "?"
 cap A starts at 100 0001 0x41
 cap Z ends at 101 1010 0x5A
 
-vowel check 
+vowel check
+bunch of branches for each uppercase  
 
 lower a is 0x61
 lower z is 0x7A
 
 vowel check
+branches for each lowercase
 
 anything after print "?"
 
