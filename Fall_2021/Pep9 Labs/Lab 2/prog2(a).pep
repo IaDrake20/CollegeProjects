@@ -15,6 +15,7 @@ main:            LDBA 0xFC15, d
                  .BLOCK 2
 dashes:          .ASCII "----------------------------\x00 \n"
 
+;quit if Q or q
                  CPBA    'q',i
                  BREQ    QUIT,i
                  CPBA    'Q',i
@@ -29,8 +30,8 @@ origChar:        STBA 0xFC16, d
                  CPBA 39, i
                  BRGT isLetter, i
 
-resultAnd:       ANDA "1", i 
-                 CPBA resultAND, i 
+resAnd:          ANDA "1", i 
+                 CPBA resAnd, i 
                  BRGT odd, i
 
 even:            LDBA 'E', i ;print E for even
@@ -53,8 +54,9 @@ isLetter:        BRGT isMisc, i
                  STBA 0xFC16, d
 
 ;if so, is the letter capital or lowercase?
-                 
+;check by seeing if its in range or not with BRGE, BRLE
 ;is the letter a vowel?
+;determine by copy pasting checks for a,e,i,o,u
 
 ;if the char is not any of the above,
 ;print out that character and ?
@@ -67,7 +69,7 @@ isMisc:          LDBA origChar, d ;load orig char to print
 
 ;print what type of character the character is
      
-;lastPrint:      .ASCII " " ; 
+;final:      .ASCII  ; 
 
 QUIT:            STOP
                  .END
