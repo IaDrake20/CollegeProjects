@@ -21,20 +21,30 @@ dashes:          .ASCII "----------------------------\x00 \n"
                  BREQ    QUIT,i
                 
 ;write character to mem
-                 origChar:        STBA 0xFC16, d
+origChar:        STBA 0xFC16, d
                  
 ;is the character a number? if not, branch to next condition. if char < 30 and > 39, branch away to BR isLetter
                  CPBA 30, i
-                 BRGT isLetter, i 
+                 BRLT isLetter, i ;if less than 30, go to letter check
+                 CPBA 39, i
+                 BRGT isLetter, i
+
+resultAnd:       ANDA "1", i 
+                 CPBA resultAND, i 
+                 BRGT odd, i
+
+even:            LDBA 'E', i ;print E for even
+                 STBA 0xFC16, d
+                 BR NOTODD, i
+
+odd:             LDBA 'O', i ;print O for odd
+                 STBA 0xFC16, d
+
+NOTODD:          LDBA origChar, d
 ;print out that character
                  LDBA 0x0208,d
                  STBA 0xFC16, d
 
-;if so, is it even or odd? Branch to even case print if even, etc
-
-;even print
-
-;odd print
 
 isLetter:        BRGT isMisc, i 
 ;is the character a letter?
