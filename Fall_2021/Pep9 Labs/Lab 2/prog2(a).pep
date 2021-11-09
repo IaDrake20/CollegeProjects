@@ -33,7 +33,8 @@ main:            LDBA 0xFC15, d
 ;LF 
                  LDBA 0x000A, i
                  STBA 0xFC16, d
-;print N
+
+;print N since we have confirmed this to be a number
                  LDBA 'N', i
                  STBA 0xFC16, d
                  
@@ -64,7 +65,7 @@ isLetter:        LDBA 0x000A, i
 
                  LDBA input, d
 
-;is capital letter?
+;Is this a capital letter?
                  CPBA 0x41, i
                  BRLT notUp, i
 
@@ -73,7 +74,8 @@ isLetter:        LDBA 0x000A, i
 
                  LDBA 'C', i
                  STBA 0xFC16, d
-;vowel check 
+
+;Check to see if char is a vowel
                  LDBA input, d
                  
                  CPBA 'A', i
@@ -93,7 +95,7 @@ isLetter:        LDBA 0x000A, i
 
                  BR loop, i                 
 
-;is lowercase letter?
+;Check for lowercase letter
 notUp:           CPBA 0x61, i
                  BRLT isMisc, i
 
@@ -131,10 +133,8 @@ printVow:        LDBA 0x000A,i
                  BR loop, i
 
 
-isMisc:          LDBA 0x000A, i
-                 STBA 0xFC16, d
 
-                 LDBA '?', i
+isMisc:          LDBA '?', i
                  STBA 0xFC16, d                 
                           
 loop:            LDBA 0x000A, i
