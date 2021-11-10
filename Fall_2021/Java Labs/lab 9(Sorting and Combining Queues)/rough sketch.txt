@@ -38,7 +38,10 @@ for(int i = 0; i < newArray.length -1; i++) {
 //pretty much same thing for secondArrayQueue
 
 
-
+----------------------------------------------------------------------------------------
+Sort idea 1
+Sort tokens as they are enqueued
+----------------------------------------------------------------------------------------
 2,3,4
 
 I want to put 1 into queue
@@ -74,5 +77,31 @@ for (int i = 0; i != highestNum; i++) {
 		queue.enqueue(x);
 	}
 
+----------------------------------------------------------------------------------------
+Sort idea 2
+assign/enqueue tokens to queue 
+now sort them
+----------------------------------------------------------------------------------------
+1,4,2,3
+enqueue (1)
+++queueLength 
+enqueue (4)
+++queueLength 
+enqueue (2)
+++queueLength 
+enqueue (3)
+++queueLength 
+
+//sort
+//I want to shuffle the values around though dequeueing to temp variables, maybe into an array or temp queue, and then reassign them.
+//so something like...
+	
+	tempQueue = queue.dequeue; //x3 times (1,4,2)
+	
+	if(tempQueue.getFront() >= queue.getFront()) {
+		
+		
+
+(for int i = 0; i < queueLength; i++){
 	
 	
