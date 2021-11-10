@@ -98,8 +98,22 @@ enqueue (3)
 	
 	tempQueue = queue.dequeue; //x3 times (1,4,2)
 	
+	//tempQueue holds 2,4,1
+	//I want to compare the front of tempQueue to the front of queue
+	//if tQ >= q, I know that q should be listed before tQ.
+	//I want this to just be accomplished here
+
 	if(tempQueue.getFront() >= queue.getFront()) {
 		
+		//hold front of queue
+		new temp = queue.dequeue();
+
+		//move larger value in first
+		queue.enqueue(tempQueue.dequeue());
+		
+		//now readd smaller value
+		queue.enqueue(newTemp);
+	}
 		
 
 (for int i = 0; i < queueLength; i++){
