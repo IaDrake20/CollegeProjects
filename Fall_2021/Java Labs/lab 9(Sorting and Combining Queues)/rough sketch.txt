@@ -96,9 +96,10 @@ enqueue (3)
 //I want to shuffle the values around though dequeueing to temp variables, maybe into an array or temp queue, and then reassign them.
 //so something like...
 	
-	tempQueue = queue.dequeue; //x3 times (1,4,2)
+	tempQueue = queue.dequeue; //1
+	resultArray
 	
-	//tempQueue holds 2,4,1
+	//tempQueue holds 1
 	//I want to compare the front of tempQueue to the front of queue
 	//if tQ >= q, I know that q should be listed before tQ.
 	//I want this to just be accomplished here
@@ -114,8 +115,25 @@ enqueue (3)
 		//now readd smaller value
 		queue.enqueue(newTemp);
 	}
+	
+	//there is only one other case, if tempQueue.getFront is < queue.getFront
+	//since it is less than the number is queue
+	else {
+		
 		
 
 (for int i = 0; i < queueLength; i++){
 	
+if(i =  0){
+	resultArray[i] = queue.dequeue
+}
+		if(queue.getFront() >= resultArray[i])
+
+			resultArray[i].makeRoom(i+1)
+			resultArray[i+1] = queue.dequeue()
+		}
+		else {
+			resultArray[i] = queue.dequeue()
+		}
+}	
 	
