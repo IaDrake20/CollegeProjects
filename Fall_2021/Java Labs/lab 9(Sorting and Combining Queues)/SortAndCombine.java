@@ -10,7 +10,7 @@ public class SortAndCombine {
 
         Scanner input = new Scanner(System.in);
         String s = ""; //rename to something more appropriate
-        StringTokenizer sT = new StringTokenizer(s);
+        StringTokenizer sT;
 
         boolean isFinished = false;
 
@@ -22,7 +22,10 @@ public class SortAndCombine {
         System.out.println("Please enter a sequence of integers...");
         s = input.nextLine();
 
+        sT = new StringTokenizer(s);
+
         while (!isFinished) {
+            
             //convert to int
             int currentToken = Integer.valueOf(sT.nextToken());
             
