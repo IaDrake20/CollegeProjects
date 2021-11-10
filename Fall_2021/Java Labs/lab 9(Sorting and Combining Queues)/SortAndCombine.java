@@ -41,38 +41,45 @@ public class SortAndCombine {
             //sort to arrange low to high
             for (int i = 0; i < queueLength-1; i++){ 
 
-                System.out.println("Currently "+intUserInputs.getFront()+" is in front of the queue");
+                try {
+                    System.out.println("Currently "+intUserInputs.getFront()+" is in front of the queue");
 
-                if(i == 0){
+                    if(i == 0){
 
-                    intList[0] = intUserInputs.dequeue();
-                    ++listEntries;
-                }
+                        intList[0] = intUserInputs.dequeue();
+                        ++listEntries;
+                    }
 
-                if(intUserInputs.getFront() >= intList[i]){
+                    if(intUserInputs.getFront() >= intList[i]){
 
-                    System.out.println(":::::::::place "+intUserInputs.getFront()+ " into the intList");
-                    makeRoom(i, intList);
-                    intList[i] = intUserInputs.dequeue();
-                    ++listEntries;
+                        System.out.println(":::::::::place "+intUserInputs.getFront()+ " into the intList");
+                        makeRoom(i, intList);
+                        intList[i] = intUserInputs.dequeue();
+                        ++listEntries;
 
-                }
-                else if( intUserInputs.getFront() < intList[i]){
+                    }
+                    else if( intUserInputs.getFront() < intList[i]){
 
-                    intList[i] = intUserInputs.dequeue();
-                }
+                      intList[i] = intUserInputs.dequeue();
+                 }
 
-                System.out.println("Compare "+listEntries+" to "+ queueLength);
+                    System.out.println("Compare listEntries: "+listEntries+" to queueLength:"+ queueLength);
 
-                if(intList.length == queueLength){
-                    isFinished = true;
-                    break;
-                }
+                    if(intList.length == queueLength){
+                        isFinished = true;
+                        break;
+                    }
+                    else {
 
-                try{
-                    System.out.println("(end of loop)...Now "+intUserInputs.getFront()+ " is the new front");
-                } catch(EmptyQueueException e){
+                        System.out.println("(end of loop)...Now "+intUserInputs.getFront()+ " is the new front");
 
+                    }
+                    } 
+                    catch(EmptyQueueException e){
+
+                        System.out.println("queue is empty");
+                        isFinished = true;
+                        break;
                 }
             }
         }
