@@ -41,6 +41,11 @@ public class SortAndCombine {
 
         int[] myArray2 = createIntList(intUserInputs2, queueLength);
 
+        //make sure arrays actually have stuff in them
+        printValues(myArray1);
+        printValues(myArray2);
+
+        
     }
 
     //this will work for only a few scenarios, needs to be able to shift many values across indexes
@@ -80,7 +85,7 @@ public class SortAndCombine {
 
         int[] intList = new int[lengthOfQueue];
 
-        int entries = 0;
+        int entries = 0;//what do I use this for?
 
         while (!isFinished) {
             
@@ -96,18 +101,18 @@ public class SortAndCombine {
                         ++entries;
                     }
 
-                    if(inputs.getFront() >= intList[i]){
+                    if(inputs.getFront() >= intList[0]){
 
                         //System.out.println(":::::::::place "+inputs.getFront()+ " into the intList");
                         makeRoom(i, intList);
-                        intList[i] = inputs.dequeue();
+                        intList[0] = inputs.dequeue();
                         ++entries;
 
                     }
 
-                    else if( inputs.getFront() < intList[i]){
+                    else if( inputs.getFront() < intList[0]){
 
-                      intList[i] = inputs.dequeue();
+                      intList[0] = inputs.dequeue();
                     }
 
                     //System.out.println("Compare listEntries: "+entries+" to queueLength:"+ lengthOfQueue);
@@ -124,11 +129,27 @@ public class SortAndCombine {
                     catch(EmptyQueueException e) {
 
                         isFinished = true;
-                        throw e;
+                        
+                        //throw e;
                     }
                 }
 
             }//end of while loop
         return intList;
     }    
+
+    private static void printValues(int[] values){
+
+        for(int i = 0; i < values.length; i++){
+            System.out.println("Iteration "+i+ " is "+values[i]);
+        }
+
+    }
+
+    /*
+    private static int reassign(int[] sortedValues){
+
+        return 0;
+    }
+    */
 }
