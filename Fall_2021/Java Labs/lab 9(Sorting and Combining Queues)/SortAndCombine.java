@@ -16,27 +16,24 @@ public class SortAndCombine {
 
         boolean isFinished = false;
 
-        int[] intList = new int[50];
-        int listEntries = 0;
-
-
         //ask for input
         System.out.println("Please enter a sequence of integers...");
         s = input.nextLine();
 
         sT = new StringTokenizer(s);
 
+        //assign values to intUserInputs from tokens
         while(sT.hasMoreTokens()){
             intUserInputs.enqueue(Integer.parseInt(sT.nextToken()));
             ++queueLength;
         }
 
+        int[] intList = new int[queueLength +1];//just in case
+        int listEntries = 0;//track how many entries are held 
+
         
 
         while (!isFinished) {
-
-            //convert to int
-            //int currentToken = Integer.valueOf(sT.nextToken());
             
             //sort to arrange low to high
             for (int i = 0; i < queueLength-1; i++){ 
@@ -85,6 +82,7 @@ public class SortAndCombine {
         }
     }
 
+    //I don't think I need to loop for this, just move things over.
     private static int[] makeRoom(int pos, int[] intArray){
 
         if(intArray[pos] != 0 && intArray[pos + 1] == 0){
