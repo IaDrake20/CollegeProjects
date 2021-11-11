@@ -52,6 +52,7 @@ public class SortAndCombine {
             intArray[pos + 1] = intArray[pos];
             intArray[pos] = 0;
         }
+
         /*
         for(int i = 0; i < intArray.length -1; i++){
 
@@ -119,16 +120,15 @@ public class SortAndCombine {
 
                         //System.out.println("(end of loop)...Now "+inputs.getFront()+ " is the new front");
                     } 
+                }
                     catch(EmptyQueueException e) {
 
-                        System.out.println("queue is empty");
                         isFinished = true;
-                        break;
+                        throw e;
                     }
                 }
-            }
-        }//end of while loop
 
+            }//end of while loop
         return intList;
     }    
 }
