@@ -7,7 +7,7 @@ ArrayQueue <Integer> intUserInputs = new ArrayQueue <Integer>();
 //Scanner input
 //ask for input
 while(isFinished){
-intUserInputs = input.nextInt();
+intUserInputs.enqueue(Integer.parse(input.nextLine());
 //ask if they want to stop
 int totalInputs_1 ++;
 }
@@ -136,4 +136,110 @@ if(i =  0){
 			resultArray[i] = queue.dequeue()
 		}
 }	
+-------------------------------------------------------------------------------------------------------------------
+Insertion sort(changed to fix instructions)
+
+
+
+while (!isFinished) {
+            
+            //sort to arrange low to high
+            for (int i = 0; i < lengthOfQueue-1; i++){ 
+
+                try {
+                    //System.out.println("Currently "+inputs.getFront()+" is in front of the queue");
+
+                    if(i == 0){
+
+                        intList[0] = inputs.dequeue();
+                        ++entries;
+                    }
+
+                    if(inputs.getFront() >= intList[0]){
+
+                        //System.out.println(":::::::::place "+inputs.getFront()+ " into the intList");
+                        makeRoom(i, intList);
+                        intList[0] = inputs.dequeue();
+                        ++entries;
+
+                    }
+
+                    else if( inputs.getFront() < intList[0]){
+
+                      intList[0] = inputs.dequeue();
+                    }
+
+                    //System.out.println("Compare listEntries: "+entries+" to queueLength:"+ lengthOfQueue);
+
+                    if(intList.length == lengthOfQueue){
+                        isFinished = true;
+                        break;
+                    }
+                    else {
+
+                        //System.out.println("(end of loop)...Now "+inputs.getFront()+ " is the new front");
+                    } 
+                }
+                    catch(EmptyQueueException e) {
+
+                        isFinished = true;
+                        
+                        //throw e;
+                    }
+                }
+
+            }//end of while loop
+
 	
+
+
+
+-------------------------------------------------------------------------------------------
+
+for each item in input
+	dequeue x from input	
+	
+	for i = 0; i < size; i++ 
+		if intList[i] >= x
+			break
+	insert x into intList at index i
+
+5,3
+3,5
+intList is 1,5,7,9
+	   0,1,2,3
+
+insert 6
+for (int i =0; i < size; i++) {
+
+	if( intList[i] > curValue) {
+
+		makeSpace();
+		intList[i] = curValue;
+		++numEntries;	
+		break;	
+	}
+}
+
+void makeSpace(int pos, int[] intArray, int numEntries) {
+
+	for(int i = pos; i < numEntires; i++) {
+
+		//keep shifting over until next index is 0
+		if(intArray[pos +1] = numEntries +1) {
+			temp = intArray[pos +1];
+			intArray[pos] = 0;
+	}
+
+	for(int i = numEntries; i > pos; i--) {
+
+		intArray[i] = intArray[i-1];
+	}
+
+
+
+
+0 1 2 3 4 5
+3 6 9 7 8 
+	7 8
+
