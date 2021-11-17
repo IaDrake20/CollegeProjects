@@ -54,6 +54,7 @@ public class AList<T> implements ListInterface<T>
       checkIntegrity();
       if ((givenPosition >= 1) && (givenPosition <= numberOfEntries + 1))
       {
+         
          if (givenPosition <= numberOfEntries)
             makeRoom(givenPosition);
          list[givenPosition] = newEntry;
