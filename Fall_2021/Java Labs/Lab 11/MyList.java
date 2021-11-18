@@ -161,6 +161,31 @@ public class MyList<T> implements ListInterface<T>
 	// When writing the methods you do not need to access the list directly.
 	// Instead use the numberOfEntries instance variables 
 	// and the methods that already exist in the class
+
+	/**
+	 * swap
+	 * @param pos1
+	 * @param pos2 
+	 * take pos1, save it, then replace it with pos2. Then replace pos2 with pos1
+	 */
+	public void swap(int pos1, int pos2) {
+
+		//save pos 1
+		T temp1 = this.getNodeAt(pos1).getData();
+
+		//save pos 2
+		T temp2 = this.getNodeAt(pos2).getData();
+
+		//set pos1's data to pos2
+		this.getNodeAt(pos1).setData(temp2);
+
+		//set pos2's data to pos1
+		this.getNodeAt(pos2).setData(temp1);
+	}
+
+
+
+
 	
 
 
@@ -234,8 +259,35 @@ public class MyList<T> implements ListInterface<T>
 	public static void main(String[] args) {
 		// Complete the main as specified in the assignment
 		// You will need to call your new methods
+
 	
+		//create a MyList object
+		MyList <String> list1 = new MyList<>();  
+
+		System.out.println(list1.isEmpty());
 	
+		//Add strings to it
+		list1.add("January");
+		list1.add("May");
+		list1.add("August");
+		list1.add("January");
+		list1.add("November");
+		list1.add("July");
+		list1.add("January");
+		list1.add("December");
+		list1.add("December");
+
+		for(int i = 1; i < list1.numberOfEntries; i++){
+
+			System.out.println(list1.getEntry(i));
+		}
+
+		//list1.swap(2, 4);
+
+		//for(int i = 1; i < list1.numberOfEntries; i++){
+
+			//System.out.println(list1.getEntry(i));
+		//}
 	
 	
 	}	
