@@ -25,7 +25,7 @@ main:    LDWA 5, i
          LDWA 9,i
          STWA num2, s;2nd spot
 
-         LDWA 12,i
+         LDWA 12,i 
          STWA num3, s;3rd spot
 
          ADDSP 6,i

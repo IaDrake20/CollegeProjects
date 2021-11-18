@@ -1,22 +1,40 @@
+                 BR main,i
+
 main:            LDBA '\n',i
-                 CALL clearMem,x
+                 
+                 ;clear out junk
+                 ;CALL clearMem,i
+
+                 ;going to just do .BLOCK and store that to the stack
+                 ;can't get my DECI to work
+                 LDBA '+',i
+                 ADDSP -1,i
+                 STBA 0,s
+
+                 LDWA 0x2B,i
+                 ADDSP -2,i
+                 STWA 0,s
+
+                 LDWA 0x0002,i
+                 ADDSP -2,i
+                 STWA 0,s
                  
                  
 
 
 
 
-                 LDBA 0xFC15,d
-                 ADDSP -1, i
-                 STBA 0,s; push operand
+                 ;LDBA 0xFC15,d
+                 ;ADDSP -1, i
+                 ;STBA 0,s; push operand
          
-                 ADDSP -2,i
-                 DECI 0,s
-                 STWA 0,s;push input 1
+                 ;ADDSP -2,i
+                 ;DECI 0,s
+                 ;STWA 0,s;push input 1
 
-                 ADDSP -2,i
-                 DECI 0,s
-                 STWA 0,s;push input 2
+                 ;ADDSP -2,i
+                 ;DECI 0,s
+                 ;STWA 0,s;push input 2
 
                  ;call, calculate, then print out
                  ;CALL Add,i 
@@ -32,7 +50,7 @@ print:           ADDSP 1,i ;print input 2
 
                  STOP
 
-;may be faster to just not use a branch
+;faster to just not use a branch
 clearMem:        LDWA 0,i
                  ADDSP -2,i
                  STWA 0,s
