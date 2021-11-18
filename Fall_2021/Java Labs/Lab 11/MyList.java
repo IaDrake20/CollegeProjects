@@ -183,6 +183,16 @@ public class MyList<T> implements ListInterface<T>
 		this.getNodeAt(pos2).setData(temp1);
 	}
 
+	public void reverse(){
+
+		//call swap for 1st pos and last pos, then 2nd pos and lastPos-1, etc
+		for(int i = 1; i <= (0.5 * this.numberOfEntries);i++) {
+				
+			this.swap(i, this.numberOfEntries-(i-1));
+		}
+			
+	}
+
 
 
 
@@ -275,20 +285,30 @@ public class MyList<T> implements ListInterface<T>
 		list1.add("July");
 		list1.add("January");
 		list1.add("December");
-		list1.add("December");
+		//list1.add("December");
 
 		for(int i = 1; i < list1.numberOfEntries; i++){
 
 			System.out.println(list1.getEntry(i));
 		}
 
-		//list1.swap(2, 4);
+		list1.swap(2, 4);
 
-		//for(int i = 1; i < list1.numberOfEntries; i++){
+		System.out.println("\n\n\n\n");
 
-			//System.out.println(list1.getEntry(i));
-		//}
+		for(int i = 1; i < list1.numberOfEntries; i++){
+
+			System.out.println(list1.getEntry(i));
+		}
+
+		//reverse
+		System.out.println("\n\n\n\n Now reversing the list");
+		list1.reverse();
 	
+		for(int i = 1; i < list1.numberOfEntries; i++){
+
+			System.out.println(list1.getEntry(i));
+		}
 	
 	}	
 		
