@@ -287,7 +287,8 @@ public class MyList<T> implements ListInterface<T>
 		list1.add("December");
 		//list1.add("December");
 
-		for(int i = 1; i < list1.numberOfEntries; i++){
+
+		for(int i = 1; i <= list1.numberOfEntries; i++){
 
 			System.out.println(list1.getEntry(i));
 		}
@@ -296,7 +297,7 @@ public class MyList<T> implements ListInterface<T>
 
 		System.out.println("\n\n\n\n");
 
-		for(int i = 1; i < list1.numberOfEntries; i++){
+		for(int i = 1; i <= list1.numberOfEntries; i++){
 
 			System.out.println(list1.getEntry(i));
 		}
@@ -305,7 +306,7 @@ public class MyList<T> implements ListInterface<T>
 		System.out.println("\n\n\n\n Now reversing the list");
 		list1.reverse();
 	
-		for(int i = 1; i < list1.numberOfEntries; i++){
+		for(int i = 1; i <= list1.numberOfEntries; i++){
 
 			System.out.println(list1.getEntry(i));
 		}
