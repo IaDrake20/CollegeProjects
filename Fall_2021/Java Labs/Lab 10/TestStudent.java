@@ -21,8 +21,13 @@ public class TestStudent {
         currentStudent = new Student(19, 3.88, "Jo Blue");
         myAList.add(currentStudent);
 
-        //delete student at position 3
-        myAList.remove(3);
+        try {
+            //delete student at position 3
+            myAList.remove(3);
+        }
+        catch (IndexOutOfBoundsException e){
+            System.out.println("The index specified is not there.");
+        }
 
         //add new student Kate Poole to the list pos 2
         currentStudent = new Student(20, 4.0, "Kate Poole");
