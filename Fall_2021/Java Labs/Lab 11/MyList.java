@@ -2,6 +2,8 @@
 // You must add 8 extra methods and a main
 // Do not change any of the existing code
 
+import java.util.Random;
+
 public class MyList<T> implements ListInterface<T>
 {
 	private Node firstNode;
@@ -193,6 +195,80 @@ public class MyList<T> implements ListInterface<T>
 			
 	}
 
+	public int findEntryFromFront(T entry){
+
+		int foundIndex = 0;
+
+		if(this.contains(entry)){
+
+			//search for firstIndex
+			for(int i = 1; i <= this.numberOfEntries; i++ ){
+
+				if(this.getEntry(i) == entry){
+					foundIndex = i;
+				}
+			}
+		}
+
+		return foundIndex;
+	}
+
+	public int findEntryFromBack(T entry){
+		int foundIndex = 0;
+
+		if(this.contains(entry)){
+
+			//search for firstIndex
+			for(int i = this.numberOfEntries; i >= 1; i-- ){
+
+				if(this.getEntry(i) == entry){
+					foundIndex = i;
+				}
+			}
+		}
+
+		return foundIndex;
+	}
+
+	public int containsAmountOf(){
+		return 0;
+	}
+
+	//public T removeAllOfSpecificEntry(){
+		//return var;
+	//}
+
+	public void shuffle() {
+
+		int randomNumber;
+		Random random = new Random();
+
+		for(int i = 1; i <= this.numberOfEntries; i++){
+			randomNumber = random.nextInt(this.numberOfEntries);
+			swap(i, randomNumber);
+		}
+		 
+
+	}
+
+	public String toString(){
+
+		String returnMe = "";
+
+		//System.out.println(numberOfEntries);
+
+		for(int i = 1; i <= this.numberOfEntries; i++){
+			//System.out.println("in for loop");
+			returnMe += "\nNode "+i+ " contains... "+this.getNodeAt(i).data;
+			
+			//this line will print the address for next, not required by instructions
+			//returnMe += " next: "+this.getNodeAt(i).next+" \n";
+		}
+
+		//System.out.println("\ntest print\n"+this.getNodeAt(3).data);
+
+		return returnMe;
+	}
 
 
 
@@ -274,7 +350,7 @@ public class MyList<T> implements ListInterface<T>
 		//create a MyList object
 		MyList <String> list1 = new MyList<>();  
 
-		System.out.println(list1.isEmpty());
+		//System.out.println(list1.isEmpty());
 	
 		//Add strings to it
 		list1.add("January");
@@ -288,28 +364,34 @@ public class MyList<T> implements ListInterface<T>
 		//list1.add("December");
 
 
-		for(int i = 1; i <= list1.numberOfEntries; i++){
+		//for(int i = 1; i <= list1.numberOfEntries; i++){
 
-			System.out.println(list1.getEntry(i));
-		}
+		//	System.out.println(list1.getEntry(i));
+		//}
+
+		System.out.println(list1.toString());
 
 		list1.swap(2, 4);
 
-		System.out.println("\n\n\n\n");
+		System.out.println(list1.toString());
 
-		for(int i = 1; i <= list1.numberOfEntries; i++){
-
-			System.out.println(list1.getEntry(i));
-		}
-
-		//reverse
-		System.out.println("\n\n\n\n Now reversing the list");
 		list1.reverse();
-	
-		for(int i = 1; i <= list1.numberOfEntries; i++){
 
-			System.out.println(list1.getEntry(i));
-		}
+		System.out.println(list1.toString());
+
+		System.out.println(list1.findEntryFromFront("January"));
+
+		System.out.println(list1.toString());
+
+		System.out.println(list1.findEntryFromBack("January"));
+
+		System.out.println(list1.toString());
+
+		//}
+
+
+
+
 	
 	}	
 		
