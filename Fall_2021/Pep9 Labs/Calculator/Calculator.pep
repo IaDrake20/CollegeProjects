@@ -3,21 +3,22 @@
 main:            LDBA '\n',i
                  
                  ;clear out junk
-                 ;CALL clearMem,i
+                 CALL clearMem,i
 
-                 ;going to just do .BLOCK and store that to the stack
-                 ;can't get my DECI to work
+                 ;DECI not woeking, for now just manually setting it
                  LDBA '+',i
-                 ADDSP -1,i
                  STBA 0,s
 
-                 LDWA 0x2B,i
+                 LDWA 0x31,i
                  ADDSP -2,i
                  STWA 0,s
 
-                 LDWA 0x0002,i
-                 ADDSP -2,i
+                 LDWA 0x32,i
+                 ADDSP -1,i
                  STWA 0,s
+
+                 ADDSP 3,i
+                 
                  
                  
 
@@ -37,22 +38,21 @@ main:            LDBA '\n',i
                  ;STWA 0,s;push input 2
 
                  ;call, calculate, then print out
-                 ;CALL Add,i 
+                 CALL Add,i 
                  ;Call Sub,i
                  ;CALL Mul,i
                  ;CALL Div,i
                  ;Call Squ,i
 
 
-                 
-print:           ADDSP 1,i ;print input 2
-                 LDBA 0,s
-
                  STOP
+;print:           ;ADDSP 1,i ;print input 2 
+                 ;LDBA 0,s
 
+                
 ;faster to just not use a branch
 clearMem:        LDWA 0,i
-                 ADDSP -2,i
+                 ADDSP -1,i
                  STWA 0,s
 
                  ADDSP -2,i
@@ -60,12 +60,16 @@ clearMem:        LDWA 0,i
 
                  ADDSP -2,i
                  STWA 0,s
+
+                 ADDSP 6,i
                  RET 
 
-;Add:            some kind out output to say now in add function
-; save it?       ADDSP 1,i
-;                LDBA  0,s
-;                ADDSP             
+Add:            LDWA 0,s;ADDSP 2,i			;subroutine
+	     ;LDWA 0,s 
+	     ADDA 2,s
+	     ;BRV  addRET,i
+                 ADDSP -2,i
+addRET:          RET	;branch if overflow bit	           
 ;Sub:
 ;Mul:
 ;Div:
