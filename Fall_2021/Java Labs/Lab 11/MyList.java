@@ -231,12 +231,16 @@ public class MyList<T> implements ListInterface<T>
 	}
 
 	public int containsAmountOf(){
-		return 0;
+		
+		for(int i = 1; i <= this.numberOfEntries; i++){
+			//if()
+		}
 	}
 
 	public T removeAllOfSpecificEntry(T entry){
 
-		T temp = this.getNodeAt(1).data;
+		//doesn't matter what is assigned to this
+		T temp = null;
 		
 		for(int i = 1; i <= this.numberOfEntries; i++){
 			if(this.getEntry(i) == entry){
@@ -244,8 +248,13 @@ public class MyList<T> implements ListInterface<T>
 				temp = this.getNodeAt(i).data;
 				this.remove(i);
 
-				System.out.println("I removed a "+entry);
+				//System.out.println("I removed a "+entry);
 			}
+		}
+
+		if(this.getNodeAt(this.numberOfEntries).getData() == entry){
+
+			this.remove(this.numberOfEntries);
 		}
 
 		return temp;
@@ -282,22 +291,6 @@ public class MyList<T> implements ListInterface<T>
 
 		return returnMe;
 	}
-
-
-
-	
-
-
-
-
-
-
-
-
-	
-	
-	
-	
 	
 	private void initializeDataFields()
 	{
@@ -362,8 +355,6 @@ public class MyList<T> implements ListInterface<T>
 	
 		//create a MyList object
 		MyList <String> list1 = new MyList<>();  
-
-		//System.out.println(list1.isEmpty());
 	
 		//Add strings to it
 		list1.add("January");
@@ -374,45 +365,20 @@ public class MyList<T> implements ListInterface<T>
 		list1.add("July");
 		list1.add("January");
 		list1.add("December");
-		//list1.add("December");
-
-
-		//for(int i = 1; i <= list1.numberOfEntries; i++){
-
-		//	System.out.println(list1.getEntry(i));
-		//}
-
-		System.out.println(list1.toString());
 
 		list1.swap(2, 4);
 
-		System.out.println(list1.toString());
-
 		list1.reverse();
-
-		System.out.println(list1.toString());
 
 		System.out.println(list1.findEntryFromFront("January"));
 
-		System.out.println(list1.toString());
-
 		System.out.println(list1.findEntryFromBack("January"));
 
-		System.out.println(list1.toString());
-
 		System.out.println(list1.removeAllOfSpecificEntry("January"));
-
-		System.out.println(list1.toString());
 
 		list1.shuffle();
 
 		System.out.println(list1.toString());
-
-
-
-
-
-	
 	}	
 		
 }
