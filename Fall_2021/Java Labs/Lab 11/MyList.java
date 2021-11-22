@@ -234,9 +234,22 @@ public class MyList<T> implements ListInterface<T>
 		return 0;
 	}
 
-	//public T removeAllOfSpecificEntry(){
-		//return var;
-	//}
+	public T removeAllOfSpecificEntry(T entry){
+
+		T temp = this.getNodeAt(1).data;
+		
+		for(int i = 1; i <= this.numberOfEntries; i++){
+			if(this.getEntry(i) == entry){
+
+				temp = this.getNodeAt(i).data;
+				this.remove(i);
+
+				System.out.println("I removed a "+entry);
+			}
+		}
+
+		return temp;
+	}
 
 	public void shuffle() {
 
@@ -384,6 +397,10 @@ public class MyList<T> implements ListInterface<T>
 		System.out.println(list1.toString());
 
 		System.out.println(list1.findEntryFromBack("January"));
+
+		System.out.println(list1.toString());
+
+		System.out.println(list1.removeAllOfSpecificEntry("January"));
 
 		System.out.println(list1.toString());
 
