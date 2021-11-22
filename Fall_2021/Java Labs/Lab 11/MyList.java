@@ -387,7 +387,10 @@ public class MyList<T> implements ListInterface<T>
 
 		System.out.println(list1.toString());
 
-		//}
+		list1.shuffle();
+
+		System.out.println(list1.toString());
+
 
 
 
