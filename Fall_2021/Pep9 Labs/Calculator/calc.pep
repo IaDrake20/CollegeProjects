@@ -13,6 +13,7 @@ main:            CALL clearMem,i
                  ;ADDSP -2,i
 
                  CALL Add,i
+                 
 
 
                  STOP
@@ -27,7 +28,7 @@ clearMem:        LDBA 0,i
 
                  STWA 0,s
                  
-                 ADDSP 5,i
+                 ADDSP 4,i
 
                  RET
                  
@@ -36,6 +37,7 @@ Add:             ADDA 2,s;ADDSP 6,i
                  ;ADDA 2,s
                  ;add operand 1 to operand 2
                  LDWA 0,s
+                 STWA 0xFC15,d
                  RET
 
 Sub:             RET

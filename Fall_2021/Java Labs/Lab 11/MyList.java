@@ -230,15 +230,21 @@ public class MyList<T> implements ListInterface<T>
 		return foundIndex;
 	}
 
-	public int containsAmountOf(){
+	public int containsAmountOf(T entry){
+
+		int count = 0;
 		
 		for(int i = 1; i <= this.numberOfEntries; i++){
-			//if()
+			if( this.getNodeAt(i) == entry){
+				++count;
+			}
 		}
+
+		return count;
 	}
 
 	public T removeAllOfSpecificEntry(T entry){
-
+ 
 		//doesn't matter what is assigned to this
 		T temp = null;
 		
