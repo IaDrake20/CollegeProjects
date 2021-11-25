@@ -380,6 +380,8 @@ public class MyList<T> implements ListInterface<T>
 
 		System.out.println(list1.findEntryFromBack("January"));
 
+		System.out.println("January appears "+list1.containsAmountOf("January")+" times.");
+
 		System.out.println(list1.removeAllOfSpecificEntry("January"));
 
 		list1.shuffle();
