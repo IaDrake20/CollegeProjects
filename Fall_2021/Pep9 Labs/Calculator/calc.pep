@@ -24,6 +24,9 @@ main:            CALL clearMem,i
                  CPBA '-',i
                  BREQ callSUB,i
 
+                 CPBA '*',i
+                 BREQ callMUL,i
+
                  CPBA 'q',i
                  BREQ STOP,i
 
@@ -39,6 +42,10 @@ callADD:         ADDSP -6,i
 
 callSUB:         ADDSP -6,i
                  CALL Sub,i
+                 ADDSP 6,i
+
+callMUL:         ADDSP -6,i
+                 CALL Mul,i
                  ADDSP 6,i
                  
                  
@@ -60,15 +67,28 @@ clearMem:        LDBA 0,i
 Add:             LDWA 6,s;
                         
                  ADDA 2,s; 
-                 BRV VError,i
+                 BRV addV,i
+addR:            RET
                  
-                 RET
+addV:            CALL VError,i
+                 BR addR,i
+                 ;end
 
 Sub:             LDWA 6,s
                  SUBA 4,s;
-                 RET
+                 BRV subV,i
+subR:            RET
 
-Mul:             LDWA 6,s                 
+subV:            call VError,i
+                 BR addR,i
+                 ;end
+        
+
+Mul:             LDWA 6,s
+mLoop:           Call Add,i
+                 ADDX 1,i;  
+                 CPWX 2,s;               
+                                  
                  RET
 
 VError:          LDWA print,i
