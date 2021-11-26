@@ -12,11 +12,25 @@ main:            CALL clearMem,i
                  LDWA 0,s
                  ;ADDSP -2,i
 
+                 ADDSP 4,i
+                 LDBA 0,s
+                 CPBA '+',i
+                 BREQ callADD,i
+
+                 CPBA 'q',i
+                 BREQ STOP,i
+
+                 CPBA 'Q',i
+                 BREQ STOP,i
+
+                 BR main,i
+
+callADD:         ADDSP -6,i
                  CALL Add,i
                  
+                 
 
-
-                 STOP
+STOP:            STOP
 
 clearMem:        LDBA 0,i
                  STBA 0,s
@@ -33,11 +47,13 @@ clearMem:        LDBA 0,i
                  RET
                  
                  
-Add:             ADDA 2,s;ADDSP 6,i
-                 ;ADDA 2,s
-                 ;add operand 1 to operand 2
-                 LDWA 0,s
-                 STWA 0xFC15,d
+Add:             ADDSP 6,i
+                 LDWA 0,s;
+                 
+                 ADDSP 2,i       
+                 ADDA 0,s;
+
+                 ADDSP -5,i 
                  RET
 
 Sub:             RET
