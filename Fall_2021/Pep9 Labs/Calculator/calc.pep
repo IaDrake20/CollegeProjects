@@ -96,8 +96,20 @@ subV:            call VError,i
                  ;end
         
 
-Mul:             LDWA 0,i
-                 LDWX 4,s
+Mul:             LDWX 4,s
+
+                 ;if one of the numbers is negative, (check for both) apply 2's complement to negative nums, then multiply and reapply it
+                 LDWA 6,s
+                 BRGE op2chk,i
+                 NEGA 
+                 ADDA 1,i
+                 
+                 
+op2chk:          LDWA 4,s
+                 BRGE mLoop,i
+
+                 
+                 
 
 mLoop:           ADDA 6,s
                  SUBX 1,i;  
