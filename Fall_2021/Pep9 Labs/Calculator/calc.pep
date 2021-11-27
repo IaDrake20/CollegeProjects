@@ -69,14 +69,14 @@ clearMem:        LDBA 0,i
                  RET
                  
                  
-Add:             LDWA 6,s;      
-                 ADDA 4,s; 
+Add:             ADDA 4,s;LDWA 6,s;      
+                 ;ADDA 4,s; 
                  BRV addV,i
                  
-                 STWA -10,s
+addR:            STWA -10,s
                  DECO -10,s
 
-addR:            RET
+                 RET
                  
 addV:            CALL VError,i
                  BR addR,i
@@ -86,22 +86,31 @@ Sub:             LDWA 6,s
                  SUBA 4,s;
                  BRV subV,i
 
-                 STWA -10,s
+subR:            STWA -10,s
                  DECO -10,s
 
-subR:            RET
+                 RET
 
 subV:            call VError,i
                  BR addR,i
                  ;end
         
 
-Mul:             LDWA 6,s
-mLoop:           Call Add,i
-                 ADDX 1,i;  
-                 CPWX 2,s;
-                 BRGE mLoop,i                                
+Mul:             LDWA 0,i
+                 LDWX 4,s
+
+mLoop:           ADDA 6,s
+                 SUBX 1,i;  
+                 BRNE mLoop,i
+
+                 BRV mulV,i 
+
+mulR:            STWA -10,s
+                 DECO -10,s                               
                  RET
+
+mulV:            call VError,i
+                 BR mulR,i
 
 VError:          LDWA print,i
                  STRO print,d
