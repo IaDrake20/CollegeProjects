@@ -105,7 +105,7 @@ Mul:             LDWX 4,s
                  ADDA 1,i
                  
                  
-op2chk:          LDWA 4,s
+op2chk:          LDWA 0,i
                  BRGE mLoop,i
 
                  
