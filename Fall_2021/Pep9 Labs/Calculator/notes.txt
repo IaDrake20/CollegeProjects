@@ -117,10 +117,12 @@ else...
 multiplication loop
 check spot 'A'
 	if 1 then use operand1
-	otherwise use spot B
+	otherwise use operand2
 
 check spot 'C'
 	if 1 use operand1
 	otherwise use operand2
+
+
 
  	
