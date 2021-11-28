@@ -1,5 +1,5 @@
                  BR main,i
-print:           .ASCII "Overflow\n\x00"
+print:           .ASCII "Error\n\x00"
 dashes:          .ASCII "\n----------------------------------\n\x00" 
 
 main:            CALL clearMem,i
@@ -197,7 +197,7 @@ dOp1chk:         LDWA 6,s
                  STBA -7,s
                  
                  
-dOp2chk:          LDWA 4,s
+dOp2chk:         LDWA 4,s
                  BRGE befdLoop,i
                  NEGA 
                  ;ADHY6CDA 1,i
@@ -211,7 +211,7 @@ befdLoop:        LDWX 0,i
                  LDWA 6,s
 dLoop:           ADDX 1,i;
                  SUBA 4,s
-                 BRV divV,i   
+                 BRLT divNegRs,i   
                  BRNE dLoop,i                                 
                 
 
@@ -230,13 +230,17 @@ dNoNeg:          LDWX -10,s
                  DECO -10,s                               
                  RET
 
-divV:            call VError,i
+;revert to last subtraction
+divNegRs:        ADDA 4,s
+                 SUBX 1,i
+                 STWX -10,s
                  BR divR,i
 ;----------------------------------------------------------------
 
 
 VError:          LDWA print,i
                  STRO print,d
+                 ;CALL pDashes,i
                  RET
 
 pDashes:         LDWA dashes,i
@@ -247,7 +251,9 @@ pEqua:           RET
 ;Things I need to do
 ;        1)multiply the operand until it reaches: 
 ;        2)know if my current result is close to the actual answer: go until result is 1 "step" greater than correct answrr, back down to last answer and return that
-Sqt:             RET
+Sqt:             
+                 BRNE Sqt,i
+                 RET
                  ;RET     
 
 ;sqaure:                       

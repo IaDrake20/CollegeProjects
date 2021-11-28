@@ -138,9 +138,39 @@ op	operand1	operand2
 
 load operand 1
 subtract operand 2 from operand1
-is result <=0?
+is result =0?
 if so...
-	
+	exit loop
+is result <
+
 
 Square root
-1) upper part will now 
+s 16 4
+operand 1 is 16
+
+
+;instead of comparing it to something, instead do this
+;we want to multiply 4 until we get 16, so we call multiply in a loop.
+;every iteration we check to see if the result is < to 16. If it is, we continue looping
+;However, if the current result is > 16 then we divide once and return that.
+;Say operand 1 is 33. 
+;	we square 1.
+;	is 1 = 33? No, so we try 1+1
+;	we square 2.
+;	4 != 33 so we try 2+1
+;	sqaure 3
+;	9 != 33
+;and so on...
+;now we reach 5
+;	we square it to get 25
+;	25 != 33
+; square 6 to get 36
+; 36 > 33
+;since 36 > 33, we exit the loop and branch to a seperated piece of code 
+;here we will take operand 2 which equals 6 and subtract 1, which gets 5
+; thus the answer is 5
+
+Save operand 1 somewhere (call it -getOp1-)
+Overwrite operand 1 w/ operand 2
+Call multiply...<-- this will square operand 2
+
