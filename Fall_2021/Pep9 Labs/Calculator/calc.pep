@@ -1,5 +1,6 @@
                  BR main,i
-print:           .ASCII "Overflow\n\x00" 
+print:           .ASCII "Overflow\n\x00"
+dashes:          .ASCII "\n----------------------------------\n\x00" 
 
 main:            CALL clearMem,i
                  
@@ -36,30 +37,44 @@ main:            CALL clearMem,i
                  CPBA '/',i
                  BREQ callDIV,i
 
+;                 CPBA 's',i
+;                 BREQ callS,i 
+
                  
 
 
                  BR main,i
 
 callADD:         ADDSP -6,i
+                 LDWA 0,i
                  CALL Add,i
                  ADDSP 6,i
+                 CALL pDashes,i
                  BR main,i
 
 callSUB:         ADDSP -6,i
                  CALL Sub,i
                  ADDSP 6,i
+                 CALL pDashes,i
                  BR main,i
 
 callMUL:         ADDSP -6,i
                  CALL Mul,i
                  ADDSP 6,i
+                 CALL pDashes,i
                  BR main,i
 
 callDIV:         ADDSP -6,i
                  CALL Div,i
                  ADDSP 6,i
+                 CALL pDashes,i 
                  BR main,i
+
+;callS:           ADDSP -6,i
+;                 CALL Squ,i 
+;                 ADDSP 6,i
+;                 CALL pDashes,i
+;                 BR main,i
                  
                  
 
@@ -74,12 +89,16 @@ clearMem:        LDBA 0,i
 
                  STWA -4,s
                  ;ADDSP -1,i
+
+                 STWA -6,s
+
+                 STWA -8,s
                  
                  RET
                  
                  
-Add:             ADDA 4,s;LDWA 6,s;      
-                 ;ADDA 4,s; 
+Add:             LDWA 6,s;      
+                 ADDA 4,s; 
                  BRV addV,i
                  
 addR:            STWA -10,s
@@ -155,18 +174,21 @@ noNeg:           LDWA -10,s
 
 
 
-
-
-
+mulV:            call VError,i
+                 BR mulR,i
 
 ;--------------------------------------------
+;load operand 1
+;subtract loop of operand 2
+;        condition to leave is 
 Div:             LDWX 4,s
                  LDBA 0,i
                  STBA -7,s
                  
-;if one of the numbers is negative, (check for both) apply 2's complement to negative nums, then multiply and reapply it
-dOp1chk:          LDWA 6,s
-                 BRGE op2chk,i
+;if one of the numbers is negative, (check for both) apply 2's complement to negative nums, then divide and reapply it
+;the answer is held in the X reg
+dOp1chk:         LDWA 6,s
+                 BRGE dOp2chk,i 
                  NEGA
                  STWA 6,s
                  
@@ -176,48 +198,58 @@ dOp1chk:          LDWA 6,s
                  
                  
 dOp2chk:          LDWA 4,s
-                 BRGE befmLoop,i
+                 BRGE befdLoop,i
                  NEGA 
-                 ;ADDA 1,i
+                 ;ADHY6CDA 1,i
                  STWA 4,s                 
                  
                  LDBA -7,s
                  ADDA 1,i
                  STBA -7,s
                  
-befdLoop:        LDWX 4,s
-                 LDWA 0,i
-dLoop:           ADDA 6,s
-                 BRV mulV,i 
-                 SUBX 1,i;  
-                 BRNE mLoop,i                                 
+befdLoop:        LDWX 0,i
+                 LDWA 6,s
+dLoop:           ADDX 1,i;
+                 SUBA 4,s
+                 BRV divV,i   
+                 BRNE dLoop,i                                 
                 
 
-divR:            STWA -10,s
+divR:            STWX -10,s
                  LDBA -7,s
                  CPBA 1,i
-                 BRNE noNeg,i
+                 BRNE dNoNeg,i 
 
-                 LDWA -10,s
+                 LDWX -10,s
                  ;SUBA 1,i
-                 NEGA
-                 STWA -10,s
+                 NEGX
+                 STWX -10,s
                  
 
-dNoNeg:           LDWA -10,s
+dNoNeg:          LDWX -10,s
                  DECO -10,s                               
                  RET
+
+divV:            call VError,i
+                 BR divR,i
 ;----------------------------------------------------------------
 
-mulV:            call VError,i
-                 BR mulR,i
 
 VError:          LDWA print,i
                  STRO print,d
                  RET
 
-Div:             RET
+pDashes:         LDWA dashes,i
+                 STRO dashes,d
+                 RET
+pEqua:           RET
+
+;Things I need to do
+;        1)multiply the operand until it reaches: 
+;        2)know if my current result is close to the actual answer: go until result is 1 "step" greater than correct answrr, back down to last answer and return that
 Sqt:             RET
-;Ovflow:          
+                 ;RET     
+
+;sqaure:                       
 
                  .END

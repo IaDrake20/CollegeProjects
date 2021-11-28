@@ -123,6 +123,24 @@ check spot 'C'
 	if 1 use operand1
 	otherwise use operand2
 
+FFFF
+0000
+	1
+1
 
+-1
+0001
+FFFF
 
- 	
+divison
+/ 	10 		5
+op	operand1	operand2
+
+load operand 1
+subtract operand 2 from operand1
+is result <=0?
+if so...
+	
+
+Square root
+1) upper part will now 
