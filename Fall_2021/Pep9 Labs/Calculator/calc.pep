@@ -17,6 +17,11 @@ main:            CALL clearMem,i
                  DECI -2,s
                  LDWA -2,s
                  ;ADDSP -2,i
+
+                 ;check to see if op is square root
+                 LDBA 0,s;
+                 CPBA 's',i
+                 BREQ callS,i
                  
                  DECI -4,s
                  LDWA -4,s
@@ -36,9 +41,6 @@ main:            CALL clearMem,i
                  
                  CPBA '/',i
                  BREQ callDIV,i
-
-;                 CPBA 's',i
-;                 BREQ callS,i 
 
                  
 
@@ -70,11 +72,11 @@ callDIV:         ADDSP -6,i
                  CALL pDashes,i 
                  BR main,i
 
-;callS:           ADDSP -6,i
-;                 CALL Squ,i 
-;                 ADDSP 6,i
-;                 CALL pDashes,i
-;                 BR main,i
+callS:           ADDSP -6,i
+                 CALL Squ,i 
+                 ADDSP 6,i
+                 CALL pDashes,i
+                 BR main,i
                  
                  
 
@@ -123,7 +125,10 @@ subV:            call VError,i
                  BR addR,i
                  ;end
         
-
+;parameter 1: 4,s
+;parameter 2: 6,s
+;will check for negatives, if a neg is present numbers will be made positive and the neg sign will be applied at the end
+;add operand 1 to itself (operand2) times
 Mul:             LDWX 4,s
                  LDBA 0,i
                  STBA -7,s
@@ -137,8 +142,7 @@ op1chk:          LDWA 6,s
                  LDBA -7,s
                  ADDA 1,i
                  STBA -7,s
-                 
-                 
+                                  
 op2chk:          LDWA 4,s
                  BRGE befmLoop,i
                  NEGA 
@@ -171,8 +175,6 @@ mulR:            STWA -10,s
 noNeg:           LDWA -10,s
                  DECO -10,s                               
                  RET
-
-
 
 mulV:            call VError,i
                  BR mulR,i
@@ -251,11 +253,25 @@ pEqua:           RET
 ;Things I need to do
 ;        1)multiply the operand until it reaches: 
 ;        2)know if my current result is close to the actual answer: go until result is 1 "step" greater than correct answrr, back down to last answer and return that
-Sqt:             
-                 BRNE Sqt,i
+
+;Operand 1: 4,s. This is what i want the result of the multiplication to be from User input
+;Operand 2: 6,s. This is my current number that I am squaring, the program starts at 1
+;To work for multiplication I need to make op2 the same as op1 and save my reult somewhere safe
+
+Squ:             LDWA 4,s
+                 STWA -12,s
+
+                 ;overwrite op1 with op2
+                 LDWA 6,s
+                 STWA 4,s
+
+;Op1: 4,s holds the number I want to be squared
+;Op2: 6,s holds same number as op1 
+;Result is held at -12,s which is safe
+
+SquLoop:         CALL Mul,i
+                 CPWA 4,s
+                 BRNE SquLoop,i
                  RET
-                 ;RET     
-
-;sqaure:                       
-
+          
                  .END
