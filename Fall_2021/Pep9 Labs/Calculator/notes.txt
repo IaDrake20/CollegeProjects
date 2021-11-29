@@ -145,7 +145,7 @@ is result <
 
 
 Square root
-s 16 4
+s 16
 operand 1 is 16
 
 
@@ -170,7 +170,13 @@ operand 1 is 16
 ;here we will take operand 2 which equals 6 and subtract 1, which gets 5
 ; thus the answer is 5
 
-Save operand 1 somewhere (call it -getOp1-)
-Overwrite operand 1 w/ operand 2
-Call multiply...<-- this will square operand 2
+s 64
+1^2 = 1
+2^2 = 2
+3^2 = 9
+4^2 = 16
+5^2 = 25
+6^2 = 36
+7^2 = 49
+8^2 = 64
 
