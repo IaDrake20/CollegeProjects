@@ -201,8 +201,7 @@ public class MyList<T> implements ListInterface<T>
 
 		if(this.contains(entry)){
 
-			//search for firstIndex
-			for(int i = 1; i <= this.numberOfEntries; i++ ){
+			for(int i = this.numberOfEntries; i >= 1; i-- ){
 
 				if(this.getEntry(i) == entry){
 					foundIndex = i;
@@ -219,7 +218,7 @@ public class MyList<T> implements ListInterface<T>
 		if(this.contains(entry)){
 
 			//search for firstIndex
-			for(int i = this.numberOfEntries; i >= 1; i-- ){
+			for(int i = 1; i <= this.numberOfEntries; i++ ){
 
 				if(this.getEntry(i) == entry){
 					foundIndex = i;
@@ -235,7 +234,7 @@ public class MyList<T> implements ListInterface<T>
 		int count = 0;
 		
 		for(int i = 1; i <= this.numberOfEntries; i++){
-			if( this.getNodeAt(i) == entry){
+			if( this.getEntry(i) == entry){
 				++count;
 			}
 		}
@@ -364,25 +363,54 @@ public class MyList<T> implements ListInterface<T>
 	
 		//Add strings to it
 		list1.add("January");
+
+		System.out.println(list1.toString());
+
 		list1.add("May");
+
+		System.out.println(list1.toString());
+
 		list1.add("August");
+
+		System.out.println(list1.toString());
+
 		list1.add("January");
+
+		System.out.println(list1.toString());
+
 		list1.add("November");
+
+		System.out.println(list1.toString());
+
 		list1.add("July");
+
+		System.out.println(list1.toString());
+
 		list1.add("January");
+
+		System.out.println(list1.toString());
+
 		list1.add("December");
+
+		System.out.println(list1.toString());
 
 		list1.swap(2, 4);
 
+		System.out.println(list1.toString());
+
 		list1.reverse();
 
-		System.out.println(list1.findEntryFromFront("January"));
+		System.out.println(list1.toString());
 
-		System.out.println(list1.findEntryFromBack("January"));
+		System.out.println("January appears first at index "+list1.findEntryFromFront("January"));
+
+		System.out.println("January appears last at index "+list1.findEntryFromBack("January"));
 
 		System.out.println("January appears "+list1.containsAmountOf("January")+" times.");
 
-		System.out.println(list1.removeAllOfSpecificEntry("January"));
+		System.out.println("The month "+list1.removeAllOfSpecificEntry("January")+" has had all instances removed.");
+
+		System.out.println(list1.toString());
 
 		list1.shuffle();
 
