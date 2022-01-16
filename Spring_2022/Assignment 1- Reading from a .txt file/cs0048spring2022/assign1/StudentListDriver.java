@@ -12,18 +12,23 @@ public class StudentListDriver {
         Scanner readFile;
         ArrayList<Student> students = new ArrayList<>();
         Student tempStudent;
+        File file = new File("StudentData.txt");
 
         try {
-            readFile = new Scanner(new File("StudentData.txt"));
+            readFile = new Scanner(file);//"C:\\Users\\Ian of Drake\\Documents\\GitHub\\CollegeProjects\\Spring_2022\\Assignment 1- Reading from a .txt file\\cs0048spring2022\\assign1\\StudentData.txt"));
 
-            //this should go to the next line and get the necessary input
-            tempStudent = new Student(readFile.nextLine(), readFile.next(), readFile.nextInt(), readFile.nextDouble());
-            students.add(tempStudent);
+            while(readFile.hasNextLine()) {
+                //this should go to the next line and get the necessary input
+                tempStudent = new Student(readFile.nextLine(), readFile.next(), readFile.nextInt(), readFile.nextDouble());
+                students.add(tempStudent);
+                System.out.println(tempStudent.getAge());
+            }
 
 
         } catch (FileNotFoundException e) {
                 System.out.println("File not Found");
                 e.printStackTrace();
+                System.err.println(file.getAbsolutePath());
                 System.exit(0);
         }
     }
