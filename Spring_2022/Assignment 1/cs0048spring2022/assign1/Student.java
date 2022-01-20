@@ -6,16 +6,18 @@ public class Student {
     private double gpa;
     private int age;
 
+    /**
+     * creates a student object and sets constructor parameters to default values.
+     */
     public Student(){
         firstName = "";
         lastName = "";
         gpa = 0.0;
         age = 0;
-
     }
 
     /**
-     *
+     * creates a student object with user specified values
      * @param fn-String firstname
      * @param ln-String lastname
      * @param yearsLived - int age
