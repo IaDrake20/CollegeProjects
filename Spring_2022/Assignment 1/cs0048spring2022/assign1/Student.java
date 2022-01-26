@@ -80,6 +80,6 @@ public class Student {
     }
 
     public String toString(){
-        return "FirstName: "+firstName+"... Lastname: "+lastName+"... GPA: "+gpa+"... Age: "+age;
+        return "First Name: "+firstName+"... Last name: "+lastName+"... GPA: "+gpa+"... Age: "+age;
     }
 }

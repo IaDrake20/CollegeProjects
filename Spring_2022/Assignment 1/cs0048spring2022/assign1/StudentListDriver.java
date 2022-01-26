@@ -30,7 +30,7 @@ public class StudentListDriver {
         readFile.close();
 
         System.out.println("Number of Students is " +studentList.size());
-/*
+
         System.out.println("The student at index 100 is..."+studentList.get(100).toString());
 
         System.out.println("Print and remove the student at index 57");
@@ -42,7 +42,7 @@ public class StudentListDriver {
 
         System.out.println("Print the student names only of those whom have a GPA among 2.5 and 3");
         printNamesBetween(2.5, 3.0);
-*/
+
         System.out.println("Delete student record with name of Todd Novak");
         deleteName("Todd", "Novak");
 
@@ -95,7 +95,7 @@ public class StudentListDriver {
            if(val.getFirstName().equalsIgnoreCase(fn) && val.getLastName().equalsIgnoreCase(ln)){
                deletedName = val.getFirstName() +" "+val.getLastName();
                it.remove();
-               System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::Removed stduent");
+               System.out.println("Removed the student.");
                break;
             }
         }
