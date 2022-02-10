@@ -15,8 +15,22 @@ x	 ###(some number)
 16x	 ###
 ...
 ----------------------------------------------------------------------------------------------------------------- */
-
+import java.util.Scanner;
 public class Searches {
+    /**
+     *
+     * @param A
+     * @param searchItem
+     * @return
+     */
+    public static boolean itSeqSearch(int[] A, int searchItem){
+        for(int i = 0; i < A.length; i++){
+            if(searchItem == A[i]){
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      *
@@ -26,12 +40,15 @@ public class Searches {
      * @param searchItem
      * @return
      */
-    public boolean recSeqSearch(int[] A, int first, int last, int searchItem){
+    public static boolean recSeqSearch(int[] A, int first, int last, int searchItem){
+        //int totalCalls;
         if(first > last){
             return false;
         } else if(A[first] == searchItem){
             return true;
         } else {
+            //++totalCalls;
+
             return recSeqSearch(A, ++first, last, searchItem);
         }
     }
@@ -44,7 +61,7 @@ public class Searches {
      * @param searchItem
      * @return
      */
-    public boolean recBinSearch(int[] A, int first, int last, int searchItem){
+    public static boolean recBinSearch(int[] A, int first, int last, int searchItem){
         if(first > last){
             return false;
         }
@@ -56,8 +73,44 @@ public class Searches {
         return false;
     }
 
-    public static void  main(Stringp[]args){
+    private static int[] createIntArray(int size){
+        int[] intArray = new int[size];
+        for(int i = 0; i < size; i++){
+            double temp = Math.random() * 10;
+            intArray[i] = (int)temp;
+        }
+        return intArray;
+    }
+
+    private static int[] resizeIntArray(int[] arr){
+        int[] temp = new int[arr.length * 2];
+        for(int i = 0; i < arr.length -1; i++){
+            temp[i] = arr[i];
+        }
+        return arr;
+    }
+
+    private void printResults(int[] arr){
+
+    }
+
+    public static void  main(String[]args){
+
+        Scanner input = new Scanner(System.in);
+        int userNumber = 0;
 
         //ask user for initial array size
+        System.out.print("Please enter the size of the integer array: ");
+        userNumber = input.nextInt();
+
+        int[] myArray = createIntArray(userNumber);
+
+        System.out.println("Size            Comparisons");
+
+
+        System.out.println(itSeqSearch(myArray, -1));
+
+        System.out.println(recBinSearch(myArray, myArray[0], myArray[myArray.length-1], -5));
+
     }
 }
