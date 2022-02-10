@@ -1,3 +1,32 @@
 We don't really have time in units, cycle thru stuff
 
 have a queue for the emergency room
+Priotity 1 > priority 5
+
+look into tokens and "split"
+whole lines from the patient data are "cases"
+
+for emergency room print some details so cycles are easier to follow
+
+
+PART 2
+Simulate 75 cycles w/o printing info
+At the end print summary data
+IE:
+    # of patients that arrived, # seen, avg wait time for those who were seen
+
+
+
+TIMECYCLE
+for each cycle 0-3 patients may arrive with different chances each
+look into using calendar
+
+CODE
+insert comments that explain problems and their solutions
+
+Save DoB as an object(date), one way to do it is local date
+
+usng heap because operations are O(log_2 n)
+
+
+ERROR CHECK FOR BAD DATA in PATIENTDATA.TXT
