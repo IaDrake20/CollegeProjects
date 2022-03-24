@@ -139,7 +139,7 @@ public class Patient{
     
     public String toString(){
         birthDate bd = new birthDate(this.getDateOfBirth().getDay(), this.getDateOfBirth().getMonth(), this.getDateOfBirth().getYear()); 
-        return lastName+", "+firstName+" "+patientID+" "+ bd.toString();
+        return firstName+", "+lastName+" "+patientID+" "+ bd.toString();
     }
     
 }

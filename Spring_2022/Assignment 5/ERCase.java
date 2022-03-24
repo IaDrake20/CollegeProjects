@@ -48,6 +48,10 @@ public class ERCase implements Comparable<ERCase>{
         timeWaiting = tW;
     }
 
+    public void incrementTimeWaiting(int newTW){
+        timeWaiting += newTW;
+    }
+
     public Patient getPatient(){
         return patient;
     }
@@ -61,6 +65,6 @@ public class ERCase implements Comparable<ERCase>{
     }
 
     public String toString(){
-        return patient.toString()+" |Priority: "+priority+" "+"|Time waiting: "+timeWaiting;
+        return "\n"+patient.toString()+" |Priority: "+priority+" "+"|Time waiting: "+timeWaiting+"...";
     }
 }
