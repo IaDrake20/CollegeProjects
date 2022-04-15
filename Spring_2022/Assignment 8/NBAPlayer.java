@@ -4,7 +4,7 @@ public class NBAPlayer {
     private String playerCountry = "";
     private int playerDraftYear = 0;
     private int playerDraftRound = 0;
-    private int playerDraftTable;
+    private int playerDraftTable = 0;
 
     public NBAPlayer(){
     }
