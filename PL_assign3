@@ -1,0 +1,146 @@
+use std::fmt::Debug;
+
+#[derive(Debug)]
+struct Rule {
+    left_hand_side: char,
+    right_hand_side: String
+}
+
+impl Rule{
+    fn new (left_hand_side: char, right_hand_side: &str) -> Rule {
+        Rule {
+            left_hand_side,
+            right_hand_side: right_hand_side.to_string(),
+        }
+    }
+
+    fn is_rule_valid(&self) -> bool {
+        return self.left_hand_side.is_ascii_uppercase();
+    }
+
+    fn rule_is_right_regular(&self) -> bool {
+        let mut count = 0;
+        for chars in self.right_hand_side.chars() {
+            count += 1;
+            if chars.is_ascii_uppercase() && count == 0 {
+                return true;
+            } else {
+                break;
+            }
+        }
+        return false;
+    }
+
+    fn rule_is_left_regular(&self) -> bool {
+        let mut count = 0;
+        for chars in self.right_hand_side.chars() {
+            count += 1;
+            if chars.is_ascii_uppercase() && count == self.right_hand_side.len() {
+                return true;
+            } else {
+                break;
+            }
+        }
+        return false;
+    }
+}
+
+#[derive(Debug)]
+struct Grammar {
+    start_symbol: char,
+    non_terminals: String,
+    terminals: String,
+    rules: Vec<Rule>
+}
+
+impl Grammar{
+    fn from_rules(rules: Vec<Rule>) -> Grammar{
+
+        //populate grammar attribs
+        let start_symbol = rules[0].left_hand_side.clone();
+        let mut non_terminals:Vec<char> = Vec::new();
+        let mut terminals:Vec<char> = Vec::new();
+        let mut rules_vec:Vec<char> = Vec::new();
+        
+        return Grammar {
+            start_symbol,
+            non_terminals: "".to_string(),
+            terminals: "".to_string(),
+            rules,
+        }
+    }
+
+    fn grammar_is_valid(&self) -> bool {
+
+        //need to check production rules, terminals, non-terminals still?
+        if self.start_symbol.is_ascii_uppercase() {
+            return true;
+        }
+        return false;
+    }
+
+    //determine if grammar is type 3, all prod rules need to be right reg or left reg but not both
+    //return t/f based on if grammmar is right reg/ left reg
+    fn grammar_is_regular(&self) -> bool{
+        for nt in self.non_terminals.chars() {
+            let right_regular = self.rule_indxs_from_nt(nt).iter().filter(|&i| self.rules[*i].rule_is_right_regular()).count();
+            let left_regular = self.rule_indxs_from_nt(nt).iter().filter(|&i| self.rules[*i].rule_is_left_regular()).count();
+
+            if right_regular > 0 && left_regular < 0{
+                return false;
+            }
+        }
+        return true;
+    }
+
+    fn rule_indxs_from_nt(&self, non_terminal:char) -> Vec<usize> {
+        let mut rule_indices = Vec::new();
+        for (index, rule) in self.rules.iter().enumerate(){
+            if rule.left_hand_side == non_terminal {
+                rule_indices.push(index);
+            }
+        }
+        return rule_indices;
+    }
+}
+
+enum Derivation_Error{
+    Incomplete_Sentential
+}
+#[derive(Debug)]
+struct Sentential {
+    sentential: String,
+    first_nt_index: i32
+}
+
+impl Sentential {
+    fn new_initial(grammar: &Grammar, rule_index: i32) -> Sentential {
+        Sentential {
+            sentential: grammar.start_symbol.to_string(),
+            first_nt_index: 0
+        }
+    }
+
+    fn new_next() {
+
+    }
+
+    fn is_complete(){
+
+    }
+}
+
+fn main() {
+    let rules = vec! {
+        Rule::new('E', "E+e"),//.new('E',"E+e"),
+        Rule::new('E',"x")
+    };
+
+    let grammar:Grammar = Grammar::from_rules(rules);
+
+    println!("grammar valid={:}",grammar.grammar_is_valid());
+    println!("grammar regular={:}", grammar.grammar_is_regular());
+    //for i in rules.iter(){
+    //    println!("{:?}",i);
+    //}
+}
