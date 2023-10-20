@@ -2,7 +2,7 @@ use std::ffi::c_ushort;
 use std::fmt::Debug;
 use std::ops::Index;
 use rand::Rng;
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 struct Rule {
     left_hand_side: char,
     right_hand_side: String
@@ -47,7 +47,7 @@ impl Rule{
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 struct Grammar {
     start_symbol: char,
     non_terminals: String,
@@ -55,20 +55,31 @@ struct Grammar {
     rules: Vec<Rule>
 }
 
-impl Clone for Grammar {
-    fn clone(&self) -> Self {
-        todo!()
-    }
-}
-
 impl Grammar{
     fn from_rules(rules: Vec<Rule>) -> Grammar{
 
         //populate grammar attribs
         let start_symbol = rules[0].left_hand_side.clone();
+        println!("start symbol is {:}", start_symbol);
+
         let mut non_terminals:Vec<char> = Vec::new();
+        for rule in rules.iter() {
+            for character in rule.right_hand_side.chars() {
+                if character.is_ascii_uppercase() {
+                    non_terminals.push(character);
+                }
+            }
+        }
+
         let mut terminals:Vec<char> = Vec::new();
-        let mut rules_vec:Vec<char> = Vec::new();
+        for rule in rules.iter() {
+            for character in rule.right_hand_side.chars() {
+                if character.is_ascii_lowercase() {
+                    terminals.push(character);
+                }
+            }
+        }
+        let mut rules_vec:Vec<Rule> = rules.clone();
 
         return Grammar {
             start_symbol,
@@ -115,7 +126,7 @@ impl Grammar{
 enum DerivationError {
     IncompleteSentential
 }
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 struct Sentential {
     sentential: String,
     first_nt_index: i32
@@ -133,9 +144,8 @@ impl Sentential {
         let index_rule = g.rules.index(index);
         let sentential = &index_rule.right_hand_side;
 
-
         return Sentential {
-            sentential: "".to_string(),
+            sentential: sentential.to_string(),
             first_nt_index: 0,
         }
     }
@@ -162,7 +172,6 @@ impl Sentential {
 struct Derivation {
     steps: Vec<(i32, Sentential)>,
     is_complete_flag: bool,
-    //word: String
 }
 
 impl Derivation {
@@ -173,96 +182,138 @@ impl Derivation {
         return Derivation {
             steps,
             is_complete_flag: false,
-            //word: steps.first().
         }
     }
 
-    fn derive_leftmost(&mut self, g: Grammar, index:usize){
+    fn derive_leftmost(&mut self, mut g: Grammar, index:usize){
         //use rng and rule_indxs_from_nt here
         //find leftmost nt
 
         let mut leftmost_nt = '0';
         let mut nts:Vec<char> = Vec::new();
         let symbols = g.rules.index(index).right_hand_side.chars();
+        println!("symbols: {:?}",symbols);
         let mut count = 0;
         for character in symbols {
 
             //check for terminal
             if character.is_ascii_uppercase() {
                 leftmost_nt = character;
-                count+=1;
             }
 
             if character.is_ascii_uppercase() && count >= 1 {
-                nts.push(character);
+                //nts.push(character);
+                //println!("pushd additional character to nts vector {:}", character);
             }
         }
         //call rule_indxs_from_nt, pass leftmost nt
         let rules = g.rule_indxs_from_nt(leftmost_nt);
 
         //apply rule
+        //g.rules = rules;
+        //maybe loop throughg.rules and apply specific rules throigh rule_indices
+        //no because the only place I actually apply rules is outside of the method
+        //instead I need to load rules to be ready to be used
         let new_sentential = Sentential::new_next(g, index);
+        println!("Newest sentential is {:?}", new_sentential);
 
         //add index and sentential result to step
         self.steps.push((index as i32, new_sentential));
         //return F if no more nts, set flag indicating that derivation is complete
-        if nts.is_empty() {
-            //return false;
-        }
+
         //return true;
     }
 
-    fn is_complete(&self) -> bool {// -> Vec<(i32, Sentential)> {
+    fn is_complete(&self) -> bool{// -> Vec<(i32, Sentential)> {
         //if sentential is_complete returns done return true
         //otherwise return the leftmost nt of the last step
+
+        /*
         if self.is_complete_flag{
             return true;
         } else {
-            //TODO: return leftmost nt
+            //TODO: return leftmost nt, but I can't because it returns only bool...
         }
         return false;
+        */
+
+        //seecond way of doing it
+        //check for nts by looping through rules in vector
+        /*for step in self.steps {
+            for sentential in step.1.it {
+                for characters in sentential {
+                    println!("{}", characters);
+                }
+            }
+        }
+
+         */
+
+        //I think I'm overthinking this, just gonna run with code below
+        let vector_size = self.steps.len()-1;
+        let last_sentential = &self.steps[vector_size].1;
+         for character in last_sentential.sentential.chars() {
+            if character.is_ascii_uppercase() {
+                return false;
+            }
+        }
+        return true;
     }
 
     fn print_random() {
-        //TODO: use rng to randomly selected a provided rule to apply
+        //TODO: use rng to randomly selected a provided rule to apply, not sure if this is its own function or a function of Derivative
+
+        //rules
+
+        //probabilities of rules
+
+        //derive until we hit max num of steps
     }
 
-    //fn word(&self) -> String{
-        //return self.steps.index(0);
-    //}
+    fn word(&self) -> &String {
+        let last_index = self.steps.len()-1;
+        let sentential = &self.steps[last_index].1;
+        return &sentential.sentential;
+    }
+
+    fn leftmost_nt(&self){
+        //not gonna put anything here for now as my derivation is actually working and I want to have the assignment finished before I go breaking it again by adding stuff
+    }
 }
 fn example_manual () {
-    let rules = vec! {
-        Rule::new('E', "E+e"),//.new('E',"E+e"),
-        Rule::new('E',"x")
+    //want result of c-(c/c)
+    let rule_set_2 = vec! {
+        Rule::new('A', "A-B"), //0
+        Rule::new('A', "B"),   //1
+        Rule::new('B', "B/C"), //2
+        Rule::new('B', "C"),   //3
+        Rule::new('C', "(B)"), //4
+        Rule::new('C', "c")    //5
     };
 
     //for i in rules.iter(){
     //    println!("{:?}",i);
     //}
 
-    let grammar:Grammar = Grammar::from_rules(rules);
+    let grammar2:Grammar = Grammar::from_rules(rule_set_2);
 
-    println!("grammar valid={:}",grammar.grammar_is_valid());
-    println!("grammar regular={:}", grammar.grammar_is_regular());
+    println!("grammar valid= {:}", grammar2.grammar_is_valid());
+    println!("grammar regular= {:}", grammar2.grammar_is_regular());
 
+    let mut deriv2 = Derivation::new(grammar2.clone());
+    deriv2.derive_leftmost(grammar2.clone(), 0); //A
+    deriv2.derive_leftmost(grammar2.clone(), 1); //A-B
+    deriv2.derive_leftmost(grammar2.clone(), 5); //c-B
+    deriv2.derive_leftmost(grammar2.clone(), 3); //c-C
+    deriv2.derive_leftmost(grammar2.clone(), 4); //c-(B)
+    deriv2.derive_leftmost(grammar2.clone(), 2); //c-(B/C)
+    deriv2.derive_leftmost(grammar2.clone(), 3); //c-(C/C)
+    deriv2.derive_leftmost(grammar2.clone(), 5); //c-(c/C)
+    deriv2.derive_leftmost(grammar2.clone(), 5); //c-(c/c)
 
-    let mut deriv = Derivation::new(grammar.clone());
-    deriv.derive_leftmost(grammar.clone(), 0);//.unwrap();
-    deriv.derive_leftmost(grammar.clone(), 0);//.unwrap();
-    deriv.derive_leftmost(grammar.clone(), 1);//.unwrap();
+    println!("derivation complete {:?}", deriv2.is_complete());
+    println!("derivation word {:?}",deriv2.word());//.unwrap());
 
-    println!("derivation complete {:?}", deriv.is_complete());
-    //println!("derivation word {:?}",deriv.word());//.unwrap());
-
-    /*
-    while derivations < max_derivations && is_leftmost_nt {
-        if(!derive_leftmost) {
-            //break
-        }
-
-    }
-     */
 }
 
 
