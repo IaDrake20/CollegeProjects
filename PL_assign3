@@ -1,5 +1,7 @@
+use std::ffi::c_ushort;
 use std::fmt::Debug;
-
+use std::ops::Index;
+use rand::Rng;
 #[derive(Debug)]
 struct Rule {
     left_hand_side: char,
@@ -53,6 +55,12 @@ struct Grammar {
     rules: Vec<Rule>
 }
 
+impl Clone for Grammar {
+    fn clone(&self) -> Self {
+        todo!()
+    }
+}
+
 impl Grammar{
     fn from_rules(rules: Vec<Rule>) -> Grammar{
 
@@ -61,7 +69,7 @@ impl Grammar{
         let mut non_terminals:Vec<char> = Vec::new();
         let mut terminals:Vec<char> = Vec::new();
         let mut rules_vec:Vec<char> = Vec::new();
-        
+
         return Grammar {
             start_symbol,
             non_terminals: "".to_string(),
@@ -104,8 +112,8 @@ impl Grammar{
     }
 }
 
-enum Derivation_Error{
-    Incomplete_Sentential
+enum DerivationError {
+    IncompleteSentential
 }
 #[derive(Debug)]
 struct Sentential {
@@ -115,19 +123,33 @@ struct Sentential {
 
 impl Sentential {
     fn new_initial(grammar: &Grammar, rule_index: i32) -> Sentential {
-       return Sentential {
+        return Sentential {
             sentential: grammar.start_symbol.to_string(),
             first_nt_index: 0
         }
     }
 
-    fn new_next(g:Grammar, index: i32) {
-        
+    fn new_next(g:Grammar, index: usize) -> Sentential {
+        let index_rule = g.rules.index(index);
+        let sentential = &index_rule.right_hand_side;
+
+
+        return Sentential {
+            sentential: "".to_string(),
+            first_nt_index: 0,
+        }
     }
 
     fn is_complete(&self) -> bool{
+        //a check for if empty
+        if self.sentential.is_empty() {
+            return true;
+        }
+
+        //check for non-terminal symbols
         for character in self.sentential.chars() {
             if character.is_ascii_uppercase() {
+                println!("{}", character);
                 return false;
             }
         }
@@ -135,25 +157,118 @@ impl Sentential {
     }
 }
 
+
 #[derive(Debug)]
 struct Derivation {
-    steps: Vec<(i32, Sentential)>
+    steps: Vec<(i32, Sentential)>,
+    is_complete_flag: bool,
+    //word: String
 }
 
 impl Derivation {
 
+    fn new(g:Grammar) -> Derivation {
+        let initial_sentential = Sentential::new_initial(&g, 0);
+        let steps = vec![(-1, initial_sentential)];
+        return Derivation {
+            steps,
+            is_complete_flag: false,
+            //word: steps.first().
+        }
+    }
+
+    fn derive_leftmost(&mut self, g: Grammar, index:usize){
+        //use rng and rule_indxs_from_nt here
+        //find leftmost nt
+
+        let mut leftmost_nt = '0';
+        let mut nts:Vec<char> = Vec::new();
+        let symbols = g.rules.index(index).right_hand_side.chars();
+        let mut count = 0;
+        for character in symbols {
+
+            //check for terminal
+            if character.is_ascii_uppercase() {
+                leftmost_nt = character;
+                count+=1;
+            }
+
+            if character.is_ascii_uppercase() && count >= 1 {
+                nts.push(character);
+            }
+        }
+        //call rule_indxs_from_nt, pass leftmost nt
+        let rules = g.rule_indxs_from_nt(leftmost_nt);
+
+        //apply rule
+        let new_sentential = Sentential::new_next(g, index);
+
+        //add index and sentential result to step
+        self.steps.push((index as i32, new_sentential));
+        //return F if no more nts, set flag indicating that derivation is complete
+        if nts.is_empty() {
+            //return false;
+        }
+        //return true;
+    }
+
+    fn is_complete(&self) -> bool {// -> Vec<(i32, Sentential)> {
+        //if sentential is_complete returns done return true
+        //otherwise return the leftmost nt of the last step
+        if self.is_complete_flag{
+            return true;
+        } else {
+            //TODO: return leftmost nt
+        }
+        return false;
+    }
+
+    fn print_random() {
+        //TODO: use rng to randomly selected a provided rule to apply
+    }
+
+    //fn word(&self) -> String{
+        //return self.steps.index(0);
+    //}
 }
-fn main() {
+fn example_manual () {
     let rules = vec! {
         Rule::new('E', "E+e"),//.new('E',"E+e"),
         Rule::new('E',"x")
     };
 
+    //for i in rules.iter(){
+    //    println!("{:?}",i);
+    //}
+
     let grammar:Grammar = Grammar::from_rules(rules);
 
     println!("grammar valid={:}",grammar.grammar_is_valid());
     println!("grammar regular={:}", grammar.grammar_is_regular());
-    //for i in rules.iter(){
-    //    println!("{:?}",i);
-    //}
+
+
+    let mut deriv = Derivation::new(grammar.clone());
+    deriv.derive_leftmost(grammar.clone(), 0);//.unwrap();
+    deriv.derive_leftmost(grammar.clone(), 0);//.unwrap();
+    deriv.derive_leftmost(grammar.clone(), 1);//.unwrap();
+
+    println!("derivation complete {:?}", deriv.is_complete());
+    //println!("derivation word {:?}",deriv.word());//.unwrap());
+
+    /*
+    while derivations < max_derivations && is_leftmost_nt {
+        if(!derive_leftmost) {
+            //break
+        }
+
+    }
+     */
+}
+
+
+/*
+let rng = rand::thread_rng();
+let random_num = rng.gen_range(1..= (size of rule vector));
+ */fn main() {
+    example_manual();
 }
