@@ -115,21 +115,34 @@ struct Sentential {
 
 impl Sentential {
     fn new_initial(grammar: &Grammar, rule_index: i32) -> Sentential {
-        Sentential {
+       return Sentential {
             sentential: grammar.start_symbol.to_string(),
             first_nt_index: 0
         }
     }
 
-    fn new_next() {
-
+    fn new_next(g:Grammar, index: i32) {
+        
     }
 
-    fn is_complete(){
-
+    fn is_complete(&self) -> bool{
+        for character in self.sentential.chars() {
+            if character.is_ascii_uppercase() {
+                return false;
+            }
+        }
+        return true;
     }
 }
 
+#[derive(Debug)]
+struct Derivation {
+    steps: Vec<(i32, Sentential)>
+}
+
+impl Derivation {
+
+}
 fn main() {
     let rules = vec! {
         Rule::new('E', "E+e"),//.new('E',"E+e"),
