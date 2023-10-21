@@ -1,9 +1,4 @@
-use std::alloc::System;
-use std::ffi::{c_ushort, CString};
 use std::fmt::Debug;
-use std::ops::Index;
-use std::pin::pin;
-use std::str::Chars;
 use rand::Rng;
 #[derive(Debug, Clone)]
 struct Rule {
@@ -82,8 +77,6 @@ impl Grammar{
                 }
             }
         }
-        let mut rules_vec:Vec<Rule> = rules.clone();
-
         return Grammar {
             start_symbol,
             non_terminals: "".to_string(),
@@ -149,8 +142,6 @@ impl Sentential {
     }
 
     fn new_next(&self, g:Grammar, index: usize, non_terminal: char) -> Sentential {
-        let index_rule = g.rules.index(index);
-        let rhs = &index_rule.right_hand_side;
 
         let new_string = self.sentential.replacen(non_terminal, &g.rules[index].right_hand_side, 1);
         //println!("Replacing nt {} with rhs: {}",non_terminal, &g.rules[index].right_hand_side);
@@ -213,7 +204,7 @@ struct Derivation {
 impl Derivation {
 
     fn new(g:Grammar) -> Derivation {
-        let initial_sentential = Sentential::new_initial((&g));
+        let initial_sentential = Sentential::new_initial(&g);
         let steps = vec![(-1, initial_sentential.clone())];
         return Derivation {
             steps,
@@ -224,7 +215,7 @@ impl Derivation {
     }
 
     //index is rule index
-    fn derive_leftmost(&mut self, mut g: Grammar, index:usize){
+    fn derive_leftmost(&mut self, g: Grammar, index:usize){
 
         println!("{:?}", self.word);
         if self.is_complete(){
