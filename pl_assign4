@@ -1,0 +1,59 @@
+use std::ptr::null;
+
+enum Token {
+    PARENS_L, PARENS_R, BRACKET_L, BRACKET_R, BRACE_L, BRACE_R,
+    POINT, COMMA, COLON, SEMICOLON, ARROW_R,
+    ADD, SUB, MUL, DIV,
+    EQ, LT, GT, NEQ, NLT, NGT,
+    NOT, AND, OR,
+    ASSIGN,
+    FUNC, LET, IF, ELSE, WHILE, PRINT,
+    ID(String),
+    TYPE_INT32, BT_LIT_FLT32, TYPE_CHAR(char),
+    LIT_INT32(i32), LIT_FLT32(f32), LIT_CHAR(char), LIT_STRING(String),
+    EOI
+}
+
+enum LexerState {
+    INPUT_POSITION, CURRENT_STATE, CURRENT_TOKEN, BUFFER_POSITION
+}
+struct Lexer {
+    input_string: String,
+    input_position: u32,
+    current_state: LexerState,
+    current_token: Token,
+    buffer: String
+}
+
+impl Lexer {
+    fn set_input(&mut self, input:String) {
+        self.input_string = input;
+    }
+
+    fn advance() { //} -> Token {
+        //transition from current token to next token and returns the previous token
+        //TODO: can't finish this func until the DFA is made
+
+        /*
+        The transition function can be implemented as a two-level decision structure. In
+        Rust, you may want to use nested match expressions, but if will work as well. The
+        outer level differentiates between states and the inner level takes actions based on
+        the next input symbol.
+        While you transition, keep track of symbols read using the buffer string. Once you
+        find, for instances, that an identifier is complete (white space or operator symbol
+        follows), you can attach the identifier’s string to the identifier enum variant.
+        */
+    }
+
+    fn curr() {
+
+    }
+    fn print_tokens() {
+        //print tokens in the input buffer using curr() and advance()
+    }
+}
+
+
+fn main() {
+    println!("Hello, world!");
+}
