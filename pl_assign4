@@ -1,5 +1,8 @@
 use std::ptr::null;
+use crate::LexerState::{ASSIGN_STATE, INITIAL_STATE, OPERATION_STATE};
+use crate::Token::EOI;
 
+#[derive(Debug, Clone, PartialEq)]
 enum Token {
     PARENS_L, PARENS_R, BRACKET_L, BRACKET_R, BRACE_L, BRACE_R,
     POINT, COMMA, COLON, SEMICOLON, ARROW_R,
@@ -14,46 +17,221 @@ enum Token {
     EOI
 }
 
+#[derive(Debug, Clone)]
 enum LexerState {
-    INPUT_POSITION, CURRENT_STATE, CURRENT_TOKEN, BUFFER_POSITION
+    //lexer states, might add a comparison
+    INITIAL_STATE, ASSIGN_STATE, OPERATION_STATE, IDENTIFIER_STATE, NUMBER_STATE, STRING_STATE, CHAR_STATE, END_STATE
 }
+#[derive(Debug, Clone)]
 struct Lexer {
     input_string: String,
-    input_position: u32,
+    input_position: i32,
     current_state: LexerState,
     current_token: Token,
+    token_vector: Vec<Token>,
     buffer: String
 }
 
 impl Lexer {
-    fn set_input(&mut self, input:String) {
+    fn new(input: &str) -> Lexer {
+        Lexer {
+            input_string: input.to_string(),
+            input_position: 0,
+            current_state: INITIAL_STATE,
+            current_token: EOI,
+            token_vector: Vec::new(),
+            buffer: String::new()
+        }
+    }
+
+    fn set_input(&mut self, input: String) {
         self.input_string = input;
+        self.input_position = 0;
+        self.current_state = LexerState::INITIAL_STATE;
+        self.current_token = Token::EOI;
+        //self.token_vector;; //not sure what to do with it
+        self.buffer.clear();
     }
 
-    fn advance() { //} -> Token {
-        //transition from current token to next token and returns the previous token
-        //TODO: can't finish this func until the DFA is made
+    fn advance(&mut self) -> Token {
+        self.buffer.clear(); // Clear the buffer before reading the next token
 
-        /*
-        The transition function can be implemented as a two-level decision structure. In
-        Rust, you may want to use nested match expressions, but if will work as well. The
-        outer level differentiates between states and the inner level takes actions based on
-        the next input symbol.
-        While you transition, keep track of symbols read using the buffer string. Once you
-        find, for instances, that an identifier is complete (white space or operator symbol
-        follows), you can attach the identifier’s string to the identifier enum variant.
-        */
+        while self.input_position < self.input_string.len() as i32 {
+            println!("position is {}", self.input_position);
+            let ch = self.input_string.chars().nth(self.input_position as usize).unwrap();
+            if ch.is_alphabetic() {
+                self.current_token = Token::ID(ch.to_string());
+                self.current_state = LexerState::IDENTIFIER_STATE;
+                let token_cpy = Token::ID(ch.to_string());
+                self.token_vector.push(token_cpy);
+            } else {
+                match ch {
+                    '=' => {
+                        if self.input_string.chars().nth((self.input_position + 1) as usize) == Option::from('=') {
+                            self.current_token = Token::EQ;
+                            self.current_state = LexerState::OPERATION_STATE;
+                            self.token_vector.push(Token::EQ);
+                        } else if self.input_string.chars().nth((self.input_position + 1) as usize) == Option::from('>'){
+                            self.current_token = Token::ARROW_R;
+                            self.current_state = LexerState::OPERATION_STATE;
+                            self.token_vector.push(Token::ARROW_R);
+                        }else {
+                            self.current_token = Token::ASSIGN;
+                            self.current_state = ASSIGN_STATE;
+                            self.token_vector.push(Token::ASSIGN);
+                        }
+                    },
+                    '<' => {
+                        if self.input_string.chars().nth((self.input_position + 1) as usize) == Option::from('=') {
+                            self.current_token = Token:: NGT;
+                            self.current_state = LexerState::OPERATION_STATE;
+                            self.token_vector.push(Token::NGT);
+                        } else {
+                            self.current_token = Token::LT;
+                            self.current_state = OPERATION_STATE;
+                            self.token_vector.push(Token::LT);
+                        }
+                    },
+                    '>' => {
+                        if self.input_string.chars().nth((self.input_position + 1) as usize) == Option::from('=') {
+                            self.current_token = Token:: NLT;
+                            self.current_state = LexerState::OPERATION_STATE;
+                            self.token_vector.push(Token::NLT);
+                        } else {
+                            self.current_token = Token::GT;
+                            self.current_state = OPERATION_STATE;
+                            self.token_vector.push(Token::GT);
+                        }
+                    },
+                    '+' => {
+                        self.current_token = Token::ADD;
+                        self.current_state = LexerState::OPERATION_STATE;
+                        self.token_vector.push(Token::ADD);
+                    },
+                    '-' => {
+                        let my_char = self.input_string.chars().nth((self.input_position + 1) as usize).unwrap_or_default();
+                        if my_char.is_numeric() {
+                            //is subtraction
+                        } else {
+                            //is arrow
+                        }
+                        self.current_token = Token::SUB;
+                        self.current_state = LexerState::OPERATION_STATE;
+                        self.token_vector.push(Token::SUB);
+                    },
+                    '*' => {
+                        self.current_token = Token::MUL;
+                        self.current_state = LexerState::OPERATION_STATE;
+                        self.token_vector.push(Token::MUL);
+                    },
+                    '/' => {
+                        self.current_token = Token::DIV;
+                        self.current_state = LexerState::OPERATION_STATE;
+                        self.token_vector.push(Token::DIV);
+                    },
+                    '(' => {
+                        self.current_token = Token::PARENS_L;
+                        self.current_state = LexerState::OPERATION_STATE;
+                        self.token_vector.push(Token::PARENS_L);
+                    },
+                    '{' => {
+                        self.current_token = Token::BRACKET_L;
+                        self.current_state = LexerState::OPERATION_STATE;
+                        self.token_vector.push(Token::BRACKET_L);
+                    },
+                    '[' => {
+                        self.current_token = Token::BRACE_L;
+                        self.current_state = LexerState::OPERATION_STATE;
+                        self.token_vector.push(Token::BRACE_L);
+                    },
+                    ']' => {
+                        self.current_token = Token::BRACE_R;
+                        self.current_state = LexerState::OPERATION_STATE;
+                        self.token_vector.push(Token::BRACE_R);
+                    },
+                    '}' => {
+                        self.current_token = Token::BRACKET_R;
+                        self.current_state = LexerState::OPERATION_STATE;
+                        self.token_vector.push(Token::BRACKET_R);
+                    },
+                    ')' => {
+                        self.current_token = Token::PARENS_R;
+                        self.current_state = LexerState::OPERATION_STATE;
+                        self.token_vector.push(Token::PARENS_R);
+                    },
+                    '&' => {
+                        self.current_token = Token::AND;
+                        self.current_state = LexerState::OPERATION_STATE;
+                        self.token_vector.push(Token::AND);
+                    },
+                    '|' => {
+                        self.current_token = Token::OR;
+                        self.current_state = LexerState::OPERATION_STATE;
+                        self.token_vector.push(Token::OR);
+                    },
+                    '.' => {
+                        self.current_token = Token::POINT;
+                        self.current_state = LexerState::OPERATION_STATE;
+                        self.token_vector.push(Token::POINT);
+                    },
+                    ',' => {
+                        self.current_token = Token::COMMA;
+                        self.current_state = LexerState::OPERATION_STATE;
+                        self.token_vector.push(Token::COMMA);
+                    },
+                    ':' => {
+                        self.current_token = Token::COLON;
+                        self.current_state = LexerState::OPERATION_STATE;
+                        self.token_vector.push(Token::COLON);
+                    },
+                    ';' => {
+                        self.current_token = Token::SEMICOLON;
+                        self.current_state = LexerState::END_STATE;
+                        self.token_vector.push(Token::SEMICOLON);
+                    },
+                    '!' => {
+                        if self.input_string.chars().nth((self.input_position + 1) as usize) == Option::from('=') {
+                            self.current_token = Token:: NEQ;
+                            self.current_state = LexerState::OPERATION_STATE;
+                            self.token_vector.push(Token::NEQ);
+                        } else {
+                            self.current_token = Token::NOT;
+                            self.current_state = LexerState::END_STATE;
+                            self.token_vector.push(Token::NOT);
+                        }
+                    },
+                    _ => {}
+                }
+
+            }
+
+            self.input_position += 1;
+        }
+
+        // Handle the end of input
+        Token::EOI
     }
 
-    fn curr() {
 
+    fn curr(&self) -> Token {
+        if self.input_string.is_empty() {
+            return Token::EOI;
+        }
+        //if at end
+        let copy = self.current_token.clone();
+        return copy;
     }
-    fn print_tokens() {
+    fn print_tokens(&mut self) {
         //print tokens in the input buffer using curr() and advance()
+        while self.curr() != Token::EOI {
+            println!("{:?}", self.advance());
+        }
     }
 }
 
-
 fn main() {
     println!("Hello, world!");
+    let mut my_lexer = Lexer::new("abcdefg");
+    my_lexer.advance();
+    my_lexer.print_tokens();
 }
