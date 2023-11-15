@@ -10,38 +10,11 @@ const INDENT : usize = 2;
 
 pub fn main() {
 
-    // create a sequence of tokens that is assumed to
-    //   be output of the lexer
-    let tokens = vec![
-        //Token::KW_FUNC,
-        Token::ID(String::from("ADD")),
-        Token::PARENS_L,
-        Token::ID(String::from("a")),
-        Token::COLON,
-        Token::ID(String::from("i32")),
-        Token::COMMA,
-        Token::ID(String::from("b")),
-        Token::COLON,
-        Token::ID(String::from("i32")),
-        Token::PARENS_R,
-        Token::ARROW_R,
-        Token::ID(String::from("i32")),
-        Token::BRACKET_L,
-        Token::BRACKET_L,
-        Token::BRACKET_L,
-        Token::BRACKET_R,
-        Token::BRACKET_L,
-        Token::BRACKET_R,
-        Token::BRACKET_R,
-        Token::BRACKET_L,
-        Token::BRACKET_R,
-        Token::BRACKET_R,
-    ];
-
     // create recursive descent parser
-    let mut lexer = Lexer::new(Vec::new(), "ADD (a:i32 , b:i32) => i32 [[[][]][]]".to_string());
-    let mut parser = DescentParser::new(lexer.clone(), "".to_string());
+    let mut lexer = Lexer::new(Vec::new(), "FUNC (ADD (a:i32 , b:i32) => i32 [[[][]][]] \n FUNC ())".to_string());
+    let mut parser = DescentParser::new(lexer.clone());
     lexer.advance();
+    parser = DescentParser::new(lexer.clone());
 
     // start recursive descent parsing
     parser.analyze();
@@ -58,7 +31,7 @@ struct DescentParser {
 
 impl DescentParser {  // simple recursive descend parser
 
-    fn new(lexer: Lexer, string: String) -> DescentParser {
+    fn new(lexer: Lexer) -> DescentParser {
         DescentParser {
             lexer,
             indent: 0,
@@ -173,7 +146,7 @@ impl DescentParser { // utility functions for lexer
     }
 
     fn expect(&mut self, symbol: Token) {
-        println!("{:?} in expect", self);
+        println!("\n {:?} in expect", self);
         println!("{:?} is current token", self.curr());
         println!("{:?} is current symbol", symbol);
         if self.curr() == symbol {

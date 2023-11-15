@@ -52,12 +52,12 @@ impl Lexer {
     pub fn advance(&mut self) -> Token {
         self.buffer.clear(); // Clear the buffer before reading the next token
 
-        while self.input_position < self.input_string.len() as i32 {
+        //while self.input_position < self.input_string.len() as i32 {
             //println!("position is {}", self.input_position);
             let ch = self.input_string.chars().nth(self.input_position as usize).unwrap();
-            println!("L::::::{:?} is current token", self.current_token);
-            println!("L::::::{:?} is current position", self.input_position);
-            println!("Currently looking at {}", ch);
+            //println!("L::::::{:?} is current token", self.current_token);
+            //println!("L::::::{:?} is current position", self.input_position);
+            //println!("Currently looking at {}", ch);
             if ch.is_alphabetic() {
                 match ch {
                     'F' => {
@@ -91,9 +91,10 @@ impl Lexer {
                     'i' => {
                         let e1 = self.input_string.chars().nth((self.input_position + 1) as usize);
                         let e2 = self.input_string.chars().nth((self.input_position + 2) as usize);
-                        let e3 = self.input_string.chars().nth((self.input_position + 4) as usize);
-                        let e4 = self.input_string.chars().nth((self.input_position + 5) as usize);
-                        if e1 == Option::from('n') && e2 == Option::from('t' ) && e3 == Option::from('3') && e2 == Option::from('2') {
+
+                        //println!("{:?}", e1.unwrap());
+                        //println!("{:?}", e2.unwrap());
+                        if e1.unwrap() == Option::from('3').unwrap() && e2.unwrap() == Option::from('2' ).unwrap(){
                             self.current_token = Token::ADD;
                             self.current_state = LexerState::OPERATION_STATE;
                             self.token_vector.push(Token::ADD);
@@ -108,16 +109,23 @@ impl Lexer {
                     _ => {
                         self.current_token = Token::ID(ch.to_string());
                         self.current_state = LexerState::ASSIGN_STATE;
-
+                        self.buffer.push(ch);
+                        self.input_position += 1;
                     }
                 }
             } else if ch.is_numeric() {
                 match type_of(ch) {
                     i32=> {
                         self.current_token = Token::TYPE_INT32();
+                        self.current_state = ASSIGN_STATE;
+                        self.buffer.push(ch);
+                        self.input_position += 1;
                     },
                     f32 => {
                         self.current_token = Token::BT_FLT32();
+                        self.current_state = ASSIGN_STATE;
+                        self.buffer.push(ch);
+                        self.input_position += 1;
                     }
                 }
             } else if ch.is_whitespace(){
@@ -221,30 +229,30 @@ impl Lexer {
                         self.input_position += 1;
                     },
                     '{' => {
-                        self.current_token = Token::BRACKET_L;
+                        self.current_token = Token::BRACE_L;
                         self.current_state = LexerState::OPERATION_STATE;
-                        self.token_vector.push(Token::BRACKET_L);
+                        self.token_vector.push(Token::BRACE_L);
                         self.buffer.push('{');
                         self.input_position += 1;
                     },
                     '[' => {
-                        self.current_token = Token::BRACE_L;
+                        self.current_token = Token::BRACKET_L;
                         self.current_state = LexerState::OPERATION_STATE;
-                        self.token_vector.push(Token::BRACE_L);
+                        self.token_vector.push(Token::BRACKET_L);
                         self.buffer.push('[');
                         self.input_position += 1;
                     },
                     ']' => {
-                        self.current_token = Token::BRACE_R;
+                        self.current_token = Token::BRACKET_R;
                         self.current_state = LexerState::OPERATION_STATE;
-                        self.token_vector.push(Token::BRACE_R);
+                        self.token_vector.push(Token::BRACKET_R);
                         self.buffer.push(']');
                         self.input_position += 1;
                     },
                     '}' => {
-                        self.current_token = Token::BRACKET_R;
+                        self.current_token = Token::BRACE_L;
                         self.current_state = LexerState::OPERATION_STATE;
-                        self.token_vector.push(Token::BRACKET_R);
+                        self.token_vector.push(Token::BRACE_L);
                         self.buffer.push('[');
                         self.input_position += 1;
                     },
@@ -320,10 +328,9 @@ impl Lexer {
                 }
 
             }
-        }
+        //}
 
-        // Handle the end of input
-        Token::EOI
+        return self.current_token.clone();
     }
 
 
