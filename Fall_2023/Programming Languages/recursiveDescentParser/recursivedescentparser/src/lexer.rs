@@ -43,6 +43,9 @@ impl Lexer {
     pub fn advance(&mut self) -> Token {
         self.buffer.clear(); // Clear the buffer before reading the next token
 
+        println!("L::::::{:?} is current token", self.current_token);
+        println!("L::::::{:?} is current position", self.input_position);
+
         while self.input_position < self.input_string.len() as i32 {
             //println!("position is {}", self.input_position);
             let ch = self.input_string.chars().nth(self.input_position as usize).unwrap();
@@ -180,15 +183,11 @@ impl Lexer {
                         let my_char = self.input_string.chars().nth((self.input_position + 1) as usize).unwrap_or_default();
                         if my_char.is_numeric() {
                             //is subtraction
+                            self.current_token = Token::SUB;
+                            self.current_state = LexerState::OPERATION_STATE;
+                            self.token_vector.push(Token::SUB);
                             self.input_position += 1;
-                        } else {
-                            //is arrow
-
                         }
-                        self.current_token = Token::SUB;
-                        self.current_state = LexerState::OPERATION_STATE;
-                        self.token_vector.push(Token::SUB);
-                        self.input_position += 1;
                     },
                     '*' => {
                         self.current_token = Token::MUL;

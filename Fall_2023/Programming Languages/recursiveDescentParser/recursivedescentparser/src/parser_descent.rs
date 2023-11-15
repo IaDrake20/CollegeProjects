@@ -172,6 +172,7 @@ impl DescentParser { // utility functions for lexer
     fn expect(&mut self, symbol: Token) {
         println!("{:?} in expect", self);
         println!("{:?} is current token", self.curr());
+        println!("{:?} is current symbol", symbol);
         if self.curr() == symbol {
             self.advance();
             println!("{:<indent$}expect({symbol:?})", "", indent = self.indent);
