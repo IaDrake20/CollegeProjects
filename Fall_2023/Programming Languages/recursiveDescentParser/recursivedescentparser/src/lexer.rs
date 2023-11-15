@@ -25,30 +25,19 @@ pub(crate) struct Lexer {
 }
 
 impl Lexer {
-    pub fn new(input: Vec<Token>) -> Lexer {
-        let mut token_vec = input;
+    pub fn new(input: Vec<Token>, str: String) -> Lexer {
         Lexer {
-            input_string: input,
+            input_string: str,
             input_position: 0,
             current_state: INITIAL_STATE,
             current_token: Token::EOI,
-            token_vector: token_vec,
+            token_vector: input,
             buffer: String::new()
         }
     }
 
-    fn to_string(&self){
-        let mut input_cpy = &self.input_string;
-
-    }
-
     pub fn set_input(&mut self, input: String) {
         self.input_string = input;
-        self.input_position = 0;
-        self.current_state = LexerState::INITIAL_STATE;
-        self.current_token = Token::EOI;
-        //self.token_vector;; //not sure what to do with it
-        self.buffer.clear();
     }
 
     pub fn advance(&mut self) -> Token {
@@ -114,10 +103,10 @@ impl Lexer {
             } else if ch.is_numeric() {
                 match type_of(ch) {
                     i32=> {
-                        self.current_token = Token::TYPE_INT32(ch as i32);
+                        self.current_token = Token::TYPE_INT32();
                     },
                     f32 => {
-
+                        self.current_token = Token::BT_FLT32();
                     }
                 }
                 self.current_token = Token::ID(" ".to_string());

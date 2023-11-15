@@ -18,7 +18,7 @@ pub enum Token {
     ASSIGN,
     FUNC, LET, IF, ELSE, WHILE, PRINT,
     ID(String),
-    TYPE_INT32(i32), BT_LIT_FLT32(f32), TYPE_CHAR(char),
+    TYPE_INT32(), BT_FLT32(), TYPE_CHAR(),
     LIT_INT32(i32), LIT_FLT32(f32), LIT_CHAR(char), LIT_STRING(String),
     EOI
 }
@@ -36,4 +36,45 @@ impl Token {
         Token::ID(String::new())
     }
     pub fn lit_i32() -> Token { Token::LIT_INT32(0) }
+}
+
+impl fmt::Display for Token {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Token::PARENS_L => write!(f, "("),
+            Token::PARENS_R => write!(f, ")"),
+            Token::BRACE_L => write!(f, "["),
+            Token::BRACE_R => write!(f, "}}"),
+            Token::BRACKET_L => write!(f, "{{"),
+            Token::BRACKET_R => write!(f, "}}"),
+            Token::POINT => write!(f, "."),
+            Token::COMMA => write!(f, ","),
+            Token::COLON => write!(f, ":"),
+            Token::SEMICOLON => write!(f, ";"),
+            Token::ARROW_R => write!(f, "=>"),
+            Token::ADD => write!(f, "+"),
+            Token::SUB => write!(f, "-"),
+            Token::MUL => write!(f, "*"),
+            Token::DIV => write!(f, "/"),
+            Token::EQ => write!(f, "=="),
+            Token::NEQ => write!(f, "!="),
+            Token::LT => write!(f, "<"),
+            Token::GT => write!(f, ">"),
+            Token::NLT => write!(f, "!<"),
+            Token::NGT => write!(f, "!>"),
+            Token::NOT => write!(f, "!"),
+            Token::AND => write!(f, "&&"),
+            Token::OR => write!(f, "||"),
+            Token::ASSIGN => write!(f, "="),
+            Token::FUNC => write!(f, "FUNC"),
+            Token::LET => write!(f, "LET"),
+            Token::IF => write!(f, "IF"),
+            Token::ELSE => write!(f, "ELSE"),
+            Token::WHILE => write!(f, "WHILE"),
+            Token::PRINT => write!(f, "PRINT"),
+            _ => {
+                Ok(())
+            }
+        }
+    }
 }

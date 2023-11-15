@@ -39,8 +39,8 @@ pub fn main() {
     ];
 
     // create recursive descent parser
-    let lexer = Lexer::new(tokens);
-    let mut parser = DescentParser::new(lexer);
+    let lexer = Lexer::new(tokens, "".to_string());
+    let mut parser = DescentParser::new(lexer, "".to_string());
 
     // start recursive descent parsing
     parser.analyze();
@@ -48,6 +48,7 @@ pub fn main() {
 }
 
 
+#[derive(Debug)]
 struct DescentParser {
     lexer: Lexer,
     indent: usize,
@@ -56,7 +57,7 @@ struct DescentParser {
 
 impl DescentParser {  // simple recursive descend parser
 
-    fn new(lexer: Lexer) -> DescentParser {
+    fn new(lexer: Lexer, string: String) -> DescentParser {
         DescentParser {
             lexer,
             indent: 0,
@@ -106,7 +107,7 @@ impl DescentParser {  // simple recursive descend parser
         {
             self.expect(Token::id());
             self.expect(Token::COLON);
-            self.expect(Token::id());
+            self.parse_type();
         }
         self.indent_decrement();
     }
@@ -125,6 +126,7 @@ impl DescentParser {  // simple recursive descend parser
     }
 
     fn parse_block_list(&mut self) {
+        println!("{:?} in parse block list", self);
         self.indent_print("parse_block_list()");
         self.indent_increment();
         {
@@ -134,6 +136,25 @@ impl DescentParser {  // simple recursive descend parser
             }
         }
         self.indent_decrement();
+    }
+
+    fn parse_type(&mut self){
+        println!("{:?} in parse type", self);
+        self.indent_print("parse type");
+        self.indent_increment();
+        {
+            match self.lexer.curr() {
+                Token::TYPE_INT32() => {
+                    self.expect(Token::TYPE_INT32());
+                }
+                Token::TYPE_CHAR() => {
+                    self.expect(Token::TYPE_CHAR());
+                }
+                _ => {
+                    panic!("Unknown token in parse type");
+                }
+            }
+        }
     }
 }
 
@@ -149,6 +170,8 @@ impl DescentParser { // utility functions for lexer
     }
 
     fn expect(&mut self, symbol: Token) {
+        println!("{:?} in expect", self);
+        println!("{:?} is current token", self.curr());
         if self.curr() == symbol {
             self.advance();
             println!("{:<indent$}expect({symbol:?})", "", indent = self.indent);
@@ -158,6 +181,7 @@ impl DescentParser { // utility functions for lexer
     }
 
     fn accept(&mut self, symbol: Token) -> bool {
+        println!("{:?} in accept", self);
         if self.curr() == symbol {
             self.advance();
             true
