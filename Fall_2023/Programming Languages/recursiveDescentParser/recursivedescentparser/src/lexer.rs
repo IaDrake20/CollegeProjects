@@ -102,7 +102,7 @@ impl Lexer {
                             self.buffer.push('t');
                             self.buffer.push('3');
                             self.buffer.push('2');
-                            self.input_position += 3;
+                            self.input_position += 5;
                         }
                     }
                     _ => {
@@ -120,7 +120,6 @@ impl Lexer {
                         self.current_token = Token::BT_FLT32();
                     }
                 }
-                self.current_token = Token::ID("".to_string());
             } else if ch.is_whitespace(){
                 self.current_token = Token::ID(" ".to_string());
                 self.input_position += 1;
@@ -138,7 +137,7 @@ impl Lexer {
                             self.current_token = Token::ARROW_R;
                             self.current_state = LexerState::OPERATION_STATE;
                             self.token_vector.push(Token::ARROW_R);
-                            self.buffer.push('+');
+                            self.buffer.push('=');
                             self.buffer.push('>');
                             self.input_position += 1;
                         }else {
@@ -154,9 +153,10 @@ impl Lexer {
                             self.current_token = Token:: NGT;
                             self.current_state = LexerState::OPERATION_STATE;
                             self.token_vector.push(Token::NGT);
-                            self.input_position += 2;
                             self.buffer.push('<');
                             self.buffer.push('=');
+                            self.input_position += 2;
+
                         } else {
                             self.current_token = Token::LT;
                             self.current_state = OPERATION_STATE;
@@ -185,6 +185,7 @@ impl Lexer {
                         self.current_token = Token::ADD;
                         self.current_state = LexerState::OPERATION_STATE;
                         self.token_vector.push(Token::ADD);
+                        self.buffer.push('+');
                         self.input_position += 1;
                     },
                     '-' => {
@@ -194,6 +195,7 @@ impl Lexer {
                             self.current_token = Token::SUB;
                             self.current_state = LexerState::OPERATION_STATE;
                             self.token_vector.push(Token::SUB);
+                            self.buffer.push('-');
                             self.input_position += 1;
                         }
                     },
@@ -201,84 +203,98 @@ impl Lexer {
                         self.current_token = Token::MUL;
                         self.current_state = LexerState::OPERATION_STATE;
                         self.token_vector.push(Token::MUL);
+                        self.buffer.push('*');
                         self.input_position += 1;
                     },
                     '/' => {
                         self.current_token = Token::DIV;
                         self.current_state = LexerState::OPERATION_STATE;
                         self.token_vector.push(Token::DIV);
+                        self.buffer.push('/');
                         self.input_position += 1;
                     },
                     '(' => {
                         self.current_token = Token::PARENS_L;
                         self.current_state = LexerState::OPERATION_STATE;
                         self.token_vector.push(Token::PARENS_L);
+                        self.buffer.push('(');
                         self.input_position += 1;
                     },
                     '{' => {
                         self.current_token = Token::BRACKET_L;
                         self.current_state = LexerState::OPERATION_STATE;
                         self.token_vector.push(Token::BRACKET_L);
+                        self.buffer.push('{');
                         self.input_position += 1;
                     },
                     '[' => {
                         self.current_token = Token::BRACE_L;
                         self.current_state = LexerState::OPERATION_STATE;
                         self.token_vector.push(Token::BRACE_L);
+                        self.buffer.push('[');
                         self.input_position += 1;
                     },
                     ']' => {
                         self.current_token = Token::BRACE_R;
                         self.current_state = LexerState::OPERATION_STATE;
                         self.token_vector.push(Token::BRACE_R);
+                        self.buffer.push(']');
                         self.input_position += 1;
                     },
                     '}' => {
                         self.current_token = Token::BRACKET_R;
                         self.current_state = LexerState::OPERATION_STATE;
                         self.token_vector.push(Token::BRACKET_R);
+                        self.buffer.push('[');
                         self.input_position += 1;
                     },
                     ')' => {
                         self.current_token = Token::PARENS_R;
                         self.current_state = LexerState::OPERATION_STATE;
                         self.token_vector.push(Token::PARENS_R);
+                        self.buffer.push(']');
                         self.input_position += 1;
                     },
                     '&' => {
                         self.current_token = Token::AND;
                         self.current_state = LexerState::OPERATION_STATE;
                         self.token_vector.push(Token::AND);
+                        self.buffer.push('&');
                         self.input_position += 1;
                     },
                     '|' => {
                         self.current_token = Token::OR;
                         self.current_state = LexerState::OPERATION_STATE;
                         self.token_vector.push(Token::OR);
+                        self.buffer.push('|');
                         self.input_position += 1;
                     },
                     '.' => {
                         self.current_token = Token::POINT;
                         self.current_state = LexerState::OPERATION_STATE;
                         self.token_vector.push(Token::POINT);
+                        self.buffer.push('.');
                         self.input_position += 1;
                     },
                     ',' => {
                         self.current_token = Token::COMMA;
                         self.current_state = LexerState::OPERATION_STATE;
                         self.token_vector.push(Token::COMMA);
+                        self.buffer.push(',');
                         self.input_position += 1;
                     },
                     ':' => {
                         self.current_token = Token::COLON;
                         self.current_state = LexerState::OPERATION_STATE;
                         self.token_vector.push(Token::COLON);
+                        self.buffer.push(':');
                         self.input_position += 1;
                     },
                     ';' => {
                         self.current_token = Token::SEMICOLON;
                         self.current_state = LexerState::END_STATE;
                         self.token_vector.push(Token::SEMICOLON);
+                        self.buffer.push(';');
                         self.input_position += 1;
                     },
                     '!' => {
@@ -286,24 +302,24 @@ impl Lexer {
                             self.current_token = Token:: NEQ;
                             self.current_state = LexerState::OPERATION_STATE;
                             self.token_vector.push(Token::NEQ);
+                            self.buffer.push('!');
+                            self.buffer.push('=');
                             self.input_position += 2;
                         } else {
                             self.current_token = Token::NOT;
                             self.current_state = LexerState::END_STATE;
                             self.token_vector.push(Token::NOT);
+                            self.buffer.push('!');
                             self.input_position += 1;
                         }
                     },
                     _ => {
                         println!("unhandled character: {}", ch);
+                        self.input_position += 1;
                     }
                 }
 
             }
-
-            self.input_position += 1;
-            print!("{:?} ", self.current_token);
-
         }
 
         // Handle the end of input
