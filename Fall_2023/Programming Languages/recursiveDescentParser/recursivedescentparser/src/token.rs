@@ -17,7 +17,7 @@ pub enum Token {
     NOT, AND, OR,
     ASSIGN,
     FUNC, LET, IF, ELSE, WHILE, PRINT,
-    ID(String),
+    ID(String), TYPE_ID,
     TYPE_INT32(), BT_FLT32(), TYPE_CHAR(),
     LIT_INT32(i32), LIT_FLT32(f32), LIT_CHAR(char), LIT_STRING(String),
     EOI

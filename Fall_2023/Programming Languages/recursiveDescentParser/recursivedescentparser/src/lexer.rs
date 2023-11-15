@@ -5,6 +5,15 @@ use crate::lexer::LexerState::{ASSIGN_STATE, INITIAL_STATE, OPERATION_STATE};
 use crate::token::Token;
 use crate::token::Token::EOI;
 
+
+
+
+/*
+refractor advance code
+use states to guide what ch is
+
+ */
+
 fn type_of<T>(_: T) -> &'static str {
     type_name::<T>()
 }
@@ -43,13 +52,12 @@ impl Lexer {
     pub fn advance(&mut self) -> Token {
         self.buffer.clear(); // Clear the buffer before reading the next token
 
-        println!("L::::::{:?} is current token", self.current_token);
-        println!("L::::::{:?} is current position", self.input_position);
-
         while self.input_position < self.input_string.len() as i32 {
             //println!("position is {}", self.input_position);
             let ch = self.input_string.chars().nth(self.input_position as usize).unwrap();
-            //println!("Currently looking at {}", ch);
+            println!("L::::::{:?} is current token", self.current_token);
+            println!("L::::::{:?} is current position", self.input_position);
+            println!("Currently looking at {}", ch);
             if ch.is_alphabetic() {
                 match ch {
                     'F' => {
@@ -112,10 +120,10 @@ impl Lexer {
                         self.current_token = Token::BT_FLT32();
                     }
                 }
-                self.current_token = Token::ID(" ".to_string());
+                self.current_token = Token::ID("".to_string());
             } else if ch.is_whitespace(){
                 self.current_token = Token::ID(" ".to_string());
-                //self.input_position += 1;
+                self.input_position += 1;
             } else {
                 match ch {
                     '=' => {

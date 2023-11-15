@@ -39,8 +39,9 @@ pub fn main() {
     ];
 
     // create recursive descent parser
-    let lexer = Lexer::new(tokens, "".to_string());
-    let mut parser = DescentParser::new(lexer, "".to_string());
+    let mut lexer = Lexer::new(Vec::new(), "ADD (a:i32 , b:i32) => i32 [[[][]][]]".to_string());
+    let mut parser = DescentParser::new(lexer.clone(), "".to_string());
+    lexer.advance();
 
     // start recursive descent parsing
     parser.analyze();
@@ -166,7 +167,9 @@ impl DescentParser { // utility functions for lexer
     }
 
     fn advance(&mut self) {
+        println!("lexer advancing");
         self.lexer.advance();
+        println!("Lexer Advanced");
     }
 
     fn expect(&mut self, symbol: Token) {
