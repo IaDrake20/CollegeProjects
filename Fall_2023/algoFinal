@@ -1,0 +1,153 @@
+import java.math.BigInteger;
+import java.util.HashMap;
+
+public class Main {
+
+    BigInteger FibonacciNum = new BigInteger("100");
+    BigInteger[] memoArray = new BigInteger[FibonacciNum.intValue()];
+    BigInteger arrSize = new BigInteger("0");
+    public static void main(String[] args) {
+        Main main = new Main();
+
+        //iterative
+        main.fibIter(main.FibonacciNum);
+        //main.fibIter(FibonacciNum.multiply(new BigInteger("2")));
+        //main.fibIter(FibonacciNum.multiply(new BigInteger("3")));
+        //main.fibIter(FibonacciNum.multiply(new BigInteger("4")));
+
+        //recursion
+        System.out.println("\nTrying recursion. I am using vastly smaller numbers because it takes too long to calculate.");
+        main.FibonacciNum = new BigInteger("10");
+
+        System.out.println(main.fib(main.FibonacciNum,BigInteger.ZERO).multiply(new BigInteger("-1")));//, BigInteger.ZERO));
+
+        main.FibonacciNum = new BigInteger("100");
+        //memoization
+        System.out.println(main.fibMemo(main.FibonacciNum,BigInteger.ZERO).multiply(new BigInteger("-1")));//, BigInteger.ZERO));
+
+
+        /*
+You must write one program that will run and show results for all the described situations.
+The problems to be solved (descriptions can be found on class handouts) :
+• Display the nth Fibonacci number
+The three different algorithms are:
+• Dynamic Programming (using iteration)
+• Regular Recursion
+• Memoization (using recursion)
+The program does not need input (you can hardcode examples or generate random numbers) and must
+display the following:
+• Show that each problem is solved for each of the three methods by showing an example
+• Show “runtime” results for each problem for each of the three methods
+Output must be clear and easily understood. There will be 9 sets of results (3 for each algorithm that
+solves each of the 3 problems).
+Note on Measuring “Runtimes”
+1. This can be done in different ways involving actual timings or counting operations. You will need
+to measure “runtimes” for different size problems so that you can draw conclusions about the
+algorithmic Ө runtimes.
+2. It may be hard to get timings that are measurable unless you do multiple problems.
+3. If you decide to count operations, make sure you are counting actual Math operations not
+method calls.
+Part 1 (20 points) – due 11am Monday December 4
+Solve only the Fibonacci Sequence. Upload the following:
+• program that outputs the results for Fibonacci. The results show correctness and “runtimes” for
+each of the three algorithms.
+• summary of ”runtime” results (either screenshots or a collected table of results
+         */
+    }
+
+    /*
+    public BigInteger fibonacciRecursive(BigInteger goal, BigInteger num, double time) {
+        if(num.compareTo(BigInteger.ZERO) <= 0){
+            //System.out.println(num);
+            return num;
+        } else if(){
+
+        }
+        System.out.println(num);
+        double timer1 = System.currentTimeMillis();
+        System.out.println(num.subtract(BigInteger.ONE)+ " + " +num.subtract(BigInteger.TWO));
+        num = num.subtract(BigInteger.ONE).add(num.subtract(BigInteger.TWO));
+        double timer2 = System.currentTimeMillis();
+        System.out.println("Fibonacci number is " + num + " began at " + (timer1) + " milliseconds and ended at "+timer2+" to calculate "+ (timer2 - timer1)+" milliseconds");
+
+        return fibonacciRecursive(goal, num, timer2 - timer1);
+    }
+     */
+    public BigInteger fib(BigInteger n, BigInteger opsDone)
+    {
+        /*if (n.compareTo(BigInteger.ONE) == -1){
+            return n.multiply(new BigInteger("-1")); //TODO: mult by -1 magic fix for now
+        }
+        System.out.println("n is "+n);
+        return fib(n.subtract(BigInteger.ONE),opsDone.add(BigInteger.ONE)).add(fib(n.subtract(BigInteger.TWO), opsDone.add(BigInteger.ONE)));*/
+        if (n.compareTo(BigInteger.ONE) == -1) { //if n < 1
+            opsDone.add(BigInteger.ONE);
+            //System.out.println("n: "+n+" is less than 0");
+            return n; // Return 0 for negative numbers
+        } else {
+            opsDone = opsDone.add(BigInteger.ONE);
+            //System.out.println("n "+n+" is recursing");
+            return fib(n.subtract(BigInteger.ONE), opsDone).add(fib(n.subtract(BigInteger.TWO), opsDone));
+        }
+    }
+
+    public BigInteger fibMemo(BigInteger n, BigInteger opsDone)
+    {
+        if(n.compareTo(BigInteger.ONE) == 0 || n.compareTo(BigInteger.TWO) == 0){
+            System.out.println("n: "+n+" is 1 or 2");
+            return BigInteger.ONE;
+        }
+        for(BigInteger i = BigInteger.ZERO; arrSize.compareTo(i) < 0; i = i.add(BigInteger.ONE)){
+            if(memoArray[i.intValue()].compareTo(n) == 0){
+                System.out.println("n: "+n+" is in the array");
+                return n;
+            }
+        }
+        if (n.compareTo(BigInteger.ONE) == -1) { //if n < 1
+            opsDone.add(BigInteger.ONE);
+            System.out.println("n: "+n+" is less than 0");
+            return n; // Return 0 for negative numbers
+        } else {
+            opsDone = opsDone.add(BigInteger.ONE);
+            System.out.println("n "+n+" is recursing");
+            for(int i = 0; i < memoArray.length; i++){
+                if(memoArray[i] == null){
+                    memoArray[i] = n;
+                    arrSize = arrSize.add(BigInteger.ONE);
+                    break;
+                }
+            }
+            System.out.println("returning");
+            return fib(n.subtract(BigInteger.ONE), opsDone).add(fib(n.subtract(BigInteger.TWO), opsDone));
+        }
+    }
+
+    public void fibIter(BigInteger FibonacciNum) {
+        BigInteger num1 = new BigInteger("0");
+        BigInteger num2 = new BigInteger("1");
+        double timer0 = 0.0;
+        double timer1 = 0.0;
+        double time = 0.0;
+
+        BigInteger numOps = BigInteger.ONE;
+
+        time = 0.0;
+        for (BigInteger i = BigInteger.TWO; i.compareTo(FibonacciNum) <= 0; i = i.add(BigInteger.ONE)) {
+            timer0 = System.currentTimeMillis();
+            BigInteger temp = num1.add(num2);
+
+            timer1 = System.currentTimeMillis();
+            time += (timer1 - timer0);
+            num1 = num2;
+            num2 = temp;
+            numOps = numOps.add(BigInteger.ONE);
+            if( i.compareTo(FibonacciNum) == 0){
+                //System.out.println("Fibonacci number " + i + " is " + num2 + " began at " + (timer1) + " milliseconds and ended at "+timer1+" to calculate.");
+            }
+            //System.out.println("Fibonacci number " + i + " is " + num2 + " began at " + (timer1) + " milliseconds and ended at "+timer1+" to calculate.");
+        }
+        //System.out.println("Total time to reach "+FibonacciNum+" took "+time+" milliseconds for Dynamic Programming(iterative).");
+        System.out.println("Total operations to reach "+FibonacciNum+" took "+numOps+" operations for Dynamic Programming(iterative).");
+    }
+
+}
